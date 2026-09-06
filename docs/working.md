@@ -2,6 +2,13 @@
 
 ## Changelog
 
+### 2026-09-06: Narrow the Viewer Scope
+- Removed runtime demo generation, alternate realtime lighting, mode selection and broad camera/quality configuration. The template now does one job: view and walk around a supplied baked-unlit scene.
+- Kept useful collision, input, color-pipeline and browser checks; moved synthetic scenery data to test fixtures instead of shipping a runtime demo.
+- Recorded P0 priorities, explicit non-goals and a delivery-first time budget in the PRD. General skill knowledge is not a mandate to implement every optional feature.
+- Existing acceptance remains green: 9 repository checks, 20 Node tests and 22 browser checks, including the production subpath build and baked-color pixel check.
+- Fixed a CI timing failure: asset readiness preceded the first render, so the test sometimes read zero triangles. Positive-view tests now wait for a rendered frame rather than weakening the geometry assertion or adding retries.
+
 ### 2026-09-05: Reusable Mobile Walkthrough Template
 - Added a standalone vanilla Three.js/Vite template with a configurable scene manifest, explicit procedural demo and real GLB loading. No user scene assets, private endpoints, analytics or native-app framework are included.
 - Reused desktop/touch navigation and collision behavior, including pause/reset, Pointer Lock fallback, delayed-grant protection and nonzero-center walk bounds.

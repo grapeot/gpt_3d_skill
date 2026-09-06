@@ -1,5 +1,21 @@
+import { test as base } from '@playwright/test';
+import { buildBoxGlb, modelScene } from './glb.mjs';
+import { TEST_COLLIDERS } from '../colliders.mjs';
+
+export const test = base.extend({
+  page: async ({ page }, use) => {
+    await fulfillJson(page, '**/scene.json', modelScene);
+    await fulfillGlb(page, '**/assets/scene.glb', buildBoxGlb());
+    await fulfillJson(page, '**/assets/colliders.json', TEST_COLLIDERS);
+    await use(page);
+  },
+});
+
 export async function waitReady(page) {
-  await page.waitForFunction(() => window.__walkthrough?.getState()?.ready === true);
+  await page.waitForFunction(() => {
+    const state = window.__walkthrough?.getState();
+    return state?.ready === true && state.drawCalls > 0 && state.triangles > 0;
+  });
 }
 
 export async function waitError(page) {

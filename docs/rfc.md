@@ -52,6 +52,6 @@ To maintain repository hygiene and prevent unintentional bloat:
 - **Status Notice**: The static display-referred route was exercised in an external task workspace. Architecture/ground used texture atlases and constant-color canopies used per-corner baked lighting. This is not an automatic GLB export promise or a guarantee for dynamic scenes.
 
 ### 6. Tooling and Runtime CLI Philosophy
-- **Reusable Template**: `templates/mobile_walkthrough` is a standalone vanilla Three.js/Vite application. A scene manifest supplies model paths, collisions, player/camera settings and lighting mode; synthetic demo geometry is explicit rather than a failure fallback. No React framework or analytics is bundled.
+- **Reusable Template**: `templates/mobile_walkthrough` has one baked-unlit GLB path. The manifest contains only assets, background, spawn/bounds and overview pose. Runtime world/demo generation, realtime lighting modes and generic camera/quality tuning are excluded. Generated geometry belongs to test fixtures only; navigation uses fixed defaults.
 - **Experimental Scripting**: Pipeline automation scripts remain in task-specific workspaces during early iteration.
 - **Future CLI Evaluation**: A shared, generic CLI may be introduced only if cross-project automation patterns prove genuinely reusable and explicit user authorization is granted.

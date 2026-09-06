@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { dispatchPointer, getState, waitReady } from './helpers.mjs';
+import { expect } from '@playwright/test';
+import { test, dispatchPointer, getState, waitReady } from './helpers.mjs';
 
 test.use({
   viewport: { width: 390, height: 844 },

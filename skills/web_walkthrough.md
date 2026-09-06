@@ -23,7 +23,7 @@ Deliver an interactive, real-time 3D architectural walkthrough in the browser us
 - **Coordinate Conversion Integrity**: Blender Z-up coordinates convert cleanly to WebGL Y-up coordinates: `(x, y, z) -> (x, z, -y)`.
 
 ## Resources
-- **Reusable Template**: [`templates/mobile_walkthrough`](../templates/mobile_walkthrough/README.md) includes configurable GLB loading, touch/desktop controls, collisions, baked/realtime lighting and tests. Copy it into the task workspace rather than rebuilding those components.
+- **Reusable Template**: [`templates/mobile_walkthrough`](../templates/mobile_walkthrough/README.md) supplies baked-unlit GLB loading, touch/desktop controls, collisions, reset/overview and tests. It intentionally has no runtime demo or alternate renderer. The broader rendering methods below are knowledge, not a template feature roadmap.
 - **Node.js, Vite & Three.js**: Minimal static web walkthrough application framework without heavy UI runtime dependencies.
 - **Blender CLI & Cycles Baking**: Headless geometry evaluation, UV atlas generation, and diffuse light baking.
 - **Playwright / Browser Automation**: Headless validation of canvas rendering, pointer-lock fallback, and touch emulation.

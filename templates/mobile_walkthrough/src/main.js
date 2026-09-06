@@ -10,7 +10,6 @@ import {
   validateColliders,
   validateConfig,
 } from './config.js';
-import { createDemoWorld } from './demoScene.js';
 import {
   LOOK_SENSITIVITY,
   clampDelta,
@@ -21,12 +20,10 @@ import {
 
 const canvas = document.querySelector('#view');
 const titleEl = document.querySelector('#title');
-const subtitleEl = document.querySelector('#subtitle');
 const statusEl = document.querySelector('#status');
 const statusTextEl = document.querySelector('#status-text');
 const barEl = document.querySelector('#bar');
 const hintEl = document.querySelector('#hint');
-const noteEl = document.querySelector('#note');
 const btnWalk = document.querySelector('#btn-walk');
 const btnOverview = document.querySelector('#btn-overview');
 const btnReset = document.querySelector('#btn-reset');
@@ -34,11 +31,9 @@ const joystickEl = document.querySelector('#joystick');
 const knobEl = document.querySelector('#joy-knob');
 
 titleEl.textContent = copy.title;
-subtitleEl.textContent = copy.subtitle;
 btnWalk.textContent = copy.enter;
 btnOverview.textContent = copy.overview;
 btnReset.textContent = copy.reset;
-noteEl.textContent = copy.note;
 
 const keys = { forward: false, back: false, left: false, right: false };
 const joy = { x: 0, y: 0, active: false, id: null };
@@ -133,6 +128,7 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: 'high-performance',
 });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.NoToneMapping;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight, false);
 
@@ -140,9 +136,6 @@ const scene = new THREE.Scene();
 const walkCam = new THREE.PerspectiveCamera(65, 1, 0.08, 80);
 walkCam.rotation.order = 'YXZ';
 const overviewCam = new THREE.PerspectiveCamera(48, 1, 0.1, 200);
-const contentRoot = new THREE.Group();
-contentRoot.name = 'content-root';
-scene.add(contentRoot);
 
 const controls = new OrbitControls(overviewCam, canvas);
 controls.enableDamping = true;
@@ -155,49 +148,6 @@ controls.touches = {
   ONE: THREE.TOUCH.ROTATE,
   TWO: THREE.TOUCH.DOLLY_ROTATE,
 };
-
-const lights = [];
-
-function disposeObject(root) {
-  root.traverse((obj) => {
-    if (obj.geometry) obj.geometry.dispose();
-    const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
-    for (const mat of materials) {
-      if (mat && mat.map) mat.map.dispose();
-      if (mat) mat.dispose();
-    }
-  });
-}
-
-function clearContent() {
-  while (contentRoot.children.length) {
-    const child = contentRoot.children[0];
-    contentRoot.remove(child);
-    disposeObject(child);
-  }
-  for (const light of lights) scene.remove(light);
-  lights.length = 0;
-  scene.environment = null;
-}
-
-function addRealtimeLights() {
-  const hemi = new THREE.HemisphereLight(0xe8eef2, 0x5c615c, 0.7);
-  const sun = new THREE.DirectionalLight(0xfff4e8, 1.7);
-  sun.position.set(6, 10, 4);
-  sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024);
-  sun.shadow.bias = -0.0006;
-  sun.shadow.camera.near = 1;
-  sun.shadow.camera.far = 28;
-  sun.shadow.camera.left = -10;
-  sun.shadow.camera.right = 10;
-  sun.shadow.camera.top = 10;
-  sun.shadow.camera.bottom = -10;
-  const fill = new THREE.DirectionalLight(0xc9d6e4, 0.28);
-  fill.position.set(-6, 5, -4);
-  scene.add(hemi, sun, fill);
-  lights.push(hemi, sun, fill);
-}
 
 function applyWalkPose() {
   walkCam.position.copy(walkPos);
@@ -237,8 +187,7 @@ function resize() {
   overviewCam.aspect = aspect;
   walkCam.updateProjectionMatrix();
   overviewCam.updateProjectionMatrix();
-  const cap = config?.quality.maxPixelRatio ?? 2;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, cap));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(w, h, false);
   if (mode === 'overview') frameOverview();
 }
@@ -490,18 +439,6 @@ function assertBakedUnlit(root) {
   });
 }
 
-function installRoot(object) {
-  clearContent();
-  object.traverse((obj) => {
-    if (obj.isMesh) {
-      obj.castShadow = config.scene.lighting === 'realtime';
-      obj.receiveShadow = obj.castShadow;
-    }
-  });
-  contentRoot.add(object);
-  if (config.scene.lighting === 'realtime') addRealtimeLights();
-}
-
 async function readBuffer(response, onProgress) {
   const total = Number(response.headers.get('content-length')) || 0;
   const reader = response.body && response.body.getReader();
@@ -534,20 +471,12 @@ async function loadModel(sceneUrl) {
   });
   const loader = new GLTFLoader();
   const gltf = await loader.parseAsync(buffer, new URL('.', modelHref).href);
-  if (config.scene.lighting === 'baked') assertBakedUnlit(gltf.scene);
+  assertBakedUnlit(gltf.scene);
   const colliderResponse = await fetch(collidersHref, { cache: 'no-cache' });
   if (!colliderResponse.ok) throw new Error(`Could not load colliders (${colliderResponse.status})`);
   extraColliders = validateColliders(await colliderResponse.json());
   assertSpawnValid(config.player, extraColliders);
-  installRoot(gltf.scene);
-}
-
-function loadDemo() {
-  const { group, colliders } = createDemoWorld(THREE, { lighting: config.scene.lighting });
-  extraColliders = colliders;
-  assertSpawnValid(config.player, extraColliders);
-  if (config.scene.lighting === 'baked') assertBakedUnlit(group);
-  installRoot(group);
+  scene.add(gltf.scene);
 }
 
 async function boot() {
@@ -557,18 +486,12 @@ async function boot() {
   if (!response.ok) throw new Error(`Could not load scene.json (${response.status})`);
   config = validateConfig(await response.json());
   titleEl.textContent = config.title;
-  subtitleEl.textContent = config.subtitle;
-  noteEl.textContent = config.scene.mode === 'demo' ? copy.note : '';
   document.title = config.title;
   const [r, g, b] = config.scene.backgroundSrgb;
   scene.background = new THREE.Color().setRGB(r, g, b, THREE.SRGBColorSpace);
-  renderer.toneMapping = config.scene.lighting === 'baked' ? THREE.NoToneMapping : THREE.AgXToneMapping;
-  renderer.shadowMap.enabled = config.scene.lighting === 'realtime';
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   applyConfigCameras();
   resize();
-  if (config.scene.mode === 'demo') loadDemo();
-  else await loadModel(sceneUrl);
+  await loadModel(sceneUrl);
   ready = true;
   lastError = null;
   document.body.dataset.ready = 'true';
@@ -611,8 +534,8 @@ window.__walkthrough = {
       locked,
       fallbackLook,
       desktopActive,
-      sceneMode: config?.scene.mode ?? null,
-      lighting: config?.scene.lighting ?? null,
+      sceneMode: config ? 'model' : null,
+      lighting: 'baked',
       position: [walkPos.x, walkPos.y, walkPos.z],
       yaw,
       pitch,

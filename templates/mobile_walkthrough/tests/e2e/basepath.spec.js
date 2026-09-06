@@ -4,14 +4,15 @@ import { buildBoxGlb, modelScene } from './glb.mjs';
 import { fulfillGlb, fulfillJson } from './helpers.mjs';
 
 test('production build works under nested BASE_PATH', async ({ page }) => {
+  await fulfillGlb(page, '**/example/viewer/assets/scene.glb', buildBoxGlb());
+  await fulfillJson(page, '**/example/viewer/assets/colliders.json', []);
   const urls = [];
   page.on('request', (request) => urls.push(request.url()));
   await page.goto('./');
   await waitReady(page);
   const state = await getState(page);
   expect(state.ready).toBe(true);
-  expect(state.sceneMode).toBe('demo');
-  await expect(page.locator('#subtitle')).toHaveText('Generated sample scene');
+  expect(state.sceneMode).toBe('model');
   expect(urls.some((url) => url.includes('/example/viewer/scene.json'))).toBe(true);
   expect(urls.some((url) => /\/example\/viewer\/assets\/.+\.js/.test(url))).toBe(true);
   expect(urls.some((url) => /\/example\/viewer\/assets\/.+\.css/.test(url))).toBe(true);
