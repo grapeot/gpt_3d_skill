@@ -3,10 +3,10 @@
 ## Changelog
 
 ### 2026-09-05: Character Rigging Skill Publication Preparation
-- Added the reviewed fourth focused skill and extended the existing sole router; no runtime app, model, media or fixture entered this repository.
+- Added the reviewed character-rigging skill and extended the existing sole router; no runtime app, model, media or fixture entered this repository.
 - Transferred observed rig/export, attachment, local-capture, clean-build and review lessons from an external character project. The new contract starts with target motion-model choice, not a human skeleton template.
 - Preserved the static architectural bake path while separating deforming characters and allowing editable generator-plus-rig sources. Existing mobile template behavior and viewer scope remain unchanged.
-- Prepared the integration in an isolated worktree. Publication and current integration-test results are not claimed by this entry.
+- Prepared the integration in an isolated worktree. Retained the concurrently merged hybrid-video skill and updated shared discovery to include all five focused skills. Publication is not claimed by this entry.
 
 ### 2026-09-05: Shoulder-Flap Follow-Up After the Documentation Gate
 - The external application now uses five bones with one shoulder actuator per wing and no elbow/Bend control. The source elbow points are deliberately ignored by mapping and calibration; this does not claim estimator immunity to real human elbow motion.
@@ -14,6 +14,12 @@
 - Candidate testing exposed head intrusion during combined tilt, then waist-side weight spill, then further intrusion at the declared upper rotation limit. An authored depth correction, a more local weight envelope and a tighter operational angle limit addressed these sampled cases without relaxing collision thresholds. The final head check covers 67 discrete cases, not a continuous collision proof.
 - A fresh-source install/build, default tests and a real CPU detector positive-fixture-to-mesh browser path passed. No runtime assets or reports were copied into this skill repository. Personal-camera behavior, phones/Safari, physical latency and user aesthetic approval remain unverified.
 - Old articulated helpers explicitly reject the new rig contract, and old snapshots are preserved. This was migration hygiene added before allowing those tools to run, not a claim that a NaN failure was observed.
+
+### 2026-09-06: Hybrid AI Video Skill
+- Added [hybrid 3D and image-to-video documentation](../skills/hybrid_ai_video.md), a root routing branch, and a README capability pointer. Exact mechanical trajectories remain under `blender_animation.md`.
+- Documented source-frame affordances, editorial/audio ownership, managed credentials, pre-POST reservations, cost attribution, and separate technical, visual, temporal, and listening acceptance. No runtime frameworks, scripts, templates, or media assets were added.
+- Reviewed the Antigravity rough draft against external production records; removed unsupported failure causes and quality claims. The 69.5-second case retains explicit final-listening and cooling-narration audit limitations.
+- Updated the focused-skill enumeration and passed all nine offline documentation checks plus `git diff --check`. No video generation, media reprocessing, account operations, or new audiovisual certification was performed for this documentation change.
 
 ### 2026-09-06: Narrow the Viewer Scope
 - Removed runtime demo generation, alternate realtime lighting, mode selection and broad camera/quality configuration. The template now does one job: view and walk around a supplied baked-unlit scene.
@@ -55,6 +61,11 @@
 ---
 
 ## Lessons Learned
+
+### Hybrid Character Films
+- **Start-Frame Motion Affordance:** A nearly seated kiln lid produced weak motion. A visible gap in the revised Blender input and a focused descent prompt improved the generated action; more prompt detail alone was not the fix.
+- **Prompt Simplification and Trimming:** Brush ferrule separation required regeneration. The retry then needed trimming at 4.5 seconds before a late invented handle appeared. Retaining a complete usable action can avoid another paid attempt.
+- **Auditory Verification Limits:** A review returned HTTP success and accounted audio tokens while denying listening capability. Earlier reviews also confused musical accents with foley. Check cue records and retain unreviewed status; technical checks and contact sheets do not replace final audiovisual review.
 
 ### 1. Blender Procedural Modeling
 - **Pack Operator Namespace**: `bpy.ops.wm.pack_all()` does not exist in modern Blender RNA APIs; asset packing must be performed using `bpy.ops.file.pack_all()`.

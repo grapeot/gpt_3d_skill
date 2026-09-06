@@ -71,7 +71,7 @@ An external static-courtyard exercise completed source-preserving preparation, a
 
 ## Character Rigging and Capture Acceptance
 
-The fourth focused skill is [`character_rigging_mocap.md`](../skills/character_rigging_mocap.md). Repository tests check its document contract and routing, not GLB assets or camera operation; all execution evidence remains outside this repository.
+The character-focused skill is [`character_rigging_mocap.md`](../skills/character_rigging_mocap.md). Repository tests check its document contract and routing, not GLB assets or camera operation; all execution evidence remains outside this repository.
 
 - Verify the approved motion abstraction before bone count or IK choices. Rejected articulation is not repaired merely by passing numeric tests.
 - Reload the rigged asset and check weights, inverse-bind recovery, actual vertex deformation and intended attachment connectivity. Inspect fixed and intermediate poses from several views, including the entire render chain.

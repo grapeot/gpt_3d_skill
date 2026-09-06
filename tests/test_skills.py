@@ -8,7 +8,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
-FOCUSED=('blender_modeling.md','blender_animation.md','web_walkthrough.md','character_rigging_mocap.md')
+FOCUSED=('blender_modeling.md','blender_animation.md','web_walkthrough.md','hybrid_ai_video.md','character_rigging_mocap.md')
 ASSET_SUFFIXES={'.blend','.blend1','.glb','.gltf','.bin','.fbx','.obj','.stl',
                 '.mp4','.mov','.webm','.mkv','.png','.jpg','.jpeg','.webp','.exr','.hdr','.tif','.tiff'}
 
@@ -41,7 +41,7 @@ class SkillContractTests(unittest.TestCase):
             with self.subTest(file=file):
                 self.assertTrue((ROOT/file).is_file())
 
-    def test_exactly_one_router_and_four_focused_skills(self):
+    def test_exactly_one_router_and_expected_focused_skills(self):
         self.assertEqual({p.name for p in (ROOT/'skills').glob('*.md')},
                          {'skill_gpt_3d.md',*FOCUSED})
         text=(ROOT/'skills'/'skill_gpt_3d.md').read_text()

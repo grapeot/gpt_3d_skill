@@ -45,7 +45,7 @@ A user or coding agent can:
   - Responsive first-person navigation supporting desktop pointer lock, click-drag fallback, and mobile touch joysticks.
   - Robust state handling for window blur, Escape pausing, and collision boundary enforcement.
 
-### 4. Character Rigging and Motion Capture (`skills/character_rigging_mocap.md`)
+### Character Rigging and Motion Capture (`skills/character_rigging_mocap.md`)
 - **Focus**: Reference-faithful articulation, rest binding, skin export/reload and optional local browser retargeting.
 - **Capabilities**: Explicit target motion-model selection, continuous skin where required, shared rig definitions, camera-free presets, capture cancellation/cleanup, and clean non-root static delivery.
 - **Acceptance**: Actual reloaded vertex deformation and multi-view poses; local capture tested separately through mock, positive-fixture and authorized live-device evidence. A passing test does not replace user approval of the character's movement.

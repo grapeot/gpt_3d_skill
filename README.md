@@ -6,6 +6,7 @@ A vendor-agnostic collection of skills for procedural 3D modeling, animation, in
 
 - **Procedural 3D Modeling (`blender_modeling`)**: Deterministic geometry generation in Blender, procedural material assignment, structured scene hierarchies, geometry and normal checks, and self-contained asset packaging.
 - **Cinematic Architectural Animation (`blender_animation`)**: Multi-stage choreographies (orbit showcases, exploded architectural views, assembly sequences, staged object entry), matrix transform synchronization, and frame-accurate FFmpeg video encoding.
+- **[Hybrid 3D / AI Video](skills/hybrid_ai_video.md)**: Blender start frames with generative character acting, per-beat narration, unified scoring, foley alignment, and explicit editorial and QA boundaries.
 - **Interactive Web Walkthroughs (`web_walkthrough`)**: Static high-fidelity WebGL delivery via texture baking, glTF/GLB export, pre-batch collision boundaries, desktop pointer-lock fallback, and responsive mobile touch navigation.
 - **Character Rigging and Motion Capture (`character_rigging_mocap`)**: Reference-driven motion-model selection, rest binding, skinning and browser retargeting. Includes camera-free presets, local capture lifecycle handling, clean asset builds and separate rig, fixture, live-device and user-approval evidence.
 
@@ -26,7 +27,7 @@ You can provide this repository location to your coding agent and request instal
 1. The installer agent inspects the target workspace agent configuration files (such as `AGENTS.md`, `CLAUDE.md`, workspace router instructions, or skills index).
 2. The agent registers a reference pointer exclusively to the root router skill:
    - Root Skill: [`skills/skill_gpt_3d.md`](skills/skill_gpt_3d.md)
-3. The four specialized domain skills remain local to this repository and are navigated dynamically via the root router: `blender_modeling.md`, `blender_animation.md`, `web_walkthrough.md`, and `character_rigging_mocap.md`.
+3. The five specialized domain skills remain local to this repository and are navigated dynamically via the root router: `blender_modeling.md`, `blender_animation.md`, `hybrid_ai_video.md`, `web_walkthrough.md`, and `character_rigging_mocap.md`.
 
 Give the agent the repository's GitHub URL or local checkout path. It should start from the target workspace's `AGENTS.md` or `CLAUDE.md`, follow `WORKSPACE.md` if present, and update `rules/skills/INDEX.md` or `skills/INDEX.md`. If no index exists, add one short root-skill pointer to the agent instructions instead. Register only the router, not every focused skill globally.
 
@@ -35,7 +36,7 @@ Give the agent the repository's GitHub URL or local checkout path. It should sta
 To use these skills locally, reference the root router:
 - Root router: [`skills/skill_gpt_3d.md`](skills/skill_gpt_3d.md)
 
-When invoking modeling, animation, walkthrough, rigging or motion-capture tasks, direct your assistant to consult `skills/skill_gpt_3d.md`. The router identifies task requirements, enforces workspace boundaries, and dispatches the appropriate specialized skill. Moving characters use the rigging branch rather than inheriting static-environment baking assumptions.
+When invoking modeling, animation, walkthrough, rigging or motion-capture tasks, direct your assistant to consult `skills/skill_gpt_3d.md`. The router identifies task requirements, enforces workspace boundaries, and dispatches the appropriate specialized skill. Deforming character assets use the rigging branch rather than inheriting static-environment baking assumptions; image-to-video acting remains in the hybrid-video branch.
 
 ## Artifact and Workspace Boundaries
 
