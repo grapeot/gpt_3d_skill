@@ -1,6 +1,6 @@
 # gpt_3d_skill
 
-A vendor-agnostic collection of modular, agent-executable skills for procedural 3D modeling, cinematic architectural animation, and interactive WebGL walkthroughs.
+A vendor-agnostic collection of skills for procedural 3D modeling, animation and interactive WebGL walkthroughs, with a reusable mobile viewer template.
 
 ## Capabilities
 
@@ -11,6 +11,12 @@ A vendor-agnostic collection of modular, agent-executable skills for procedural 
 ## Installation
 
 This repository provides loose Markdown skill definitions designed for direct integration by coding agents (such as Codex, Claude Code, Cursor, OpenCode) and human developers.
+
+## Reuse the Viewer
+
+Start from [`templates/mobile_walkthrough/`](templates/mobile_walkthrough/README.md) instead of rewriting the controls. Copy that directory into a task workspace, run `npm ci`, then `npm run dev`. The included demo is generated from simple geometry; it contains no user model.
+
+Configure `public/scene.json` with your GLB, collider file, spawn point, bounds and lighting mode. The template includes touch movement/look, desktop Pointer Lock fallback, overview/reset controls, baked unlit rendering, unit tests and Playwright checks. `BASE_PATH` supports deployment below a website subpath. It is a mobile-friendly webpage, not a native app or physics engine.
 
 ### Agent-Assisted Installation
 
@@ -32,7 +38,7 @@ When invoking 3D modeling, animation, or web walkthrough tasks, direct your assi
 
 ## Artifact and Workspace Boundaries
 
-All runtime outputs generated during task execution—including `.blend` project files, rendered PNG image sequences, encoded MP4 videos, exported GLB assets, and web build bundles—belong strictly in task-specific workspaces external to this skill repository. This repository remains a clean, lightweight catalog of instructions and structural integrity checks.
+User models, references, renders, deployment settings and builds belong in task workspaces outside this repository. The repository includes reusable template source and code-generated test fixtures, but generated browser outputs and dependencies remain ignored. No analytics or remote asset CDN is enabled by default.
 
 ## Verification
 
@@ -44,4 +50,4 @@ source .venv/bin/activate
 python -m unittest discover -s tests -v
 ```
 
-These automated tests validate Markdown links, document structure, and repository hygiene. They serve as document integrity checks and do not represent visual rendering certification. Visual and interactive fidelity is verified via dedicated inspection procedures in external task workspaces.
+These tests validate Markdown links, document structure and repository hygiene, including template source. Run the template's `npm test` and `npm run test:e2e` for configuration, collision and browser checks. CI runs all three suites. They do not certify arbitrary user models or physical-phone performance.

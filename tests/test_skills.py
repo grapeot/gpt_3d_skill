@@ -1,5 +1,6 @@
 """Offline documentation checks; these do not certify Blender or browser visuals."""
 import ast
+import os
 import re
 import textwrap
 import unittest
@@ -8,12 +9,23 @@ from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
 FOCUSED=('blender_modeling.md','blender_animation.md','web_walkthrough.md')
+ASSET_SUFFIXES={'.blend','.blend1','.glb','.gltf','.bin','.fbx','.obj','.stl',
+                '.mp4','.mov','.webm','.mkv','.png','.jpg','.jpeg','.webp','.exr','.hdr','.tif','.tiff'}
 
 
 def public_files():
-    roots=[ROOT/'README.md',ROOT/'AGENTS.md',ROOT/'.gitignore',ROOT/'.env.example']
-    for directory in ('skills','docs','tests','.github'):
-        roots.extend(p for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts)
+    roots=[]
+    excluded={'.git','.local','.venv','__pycache__','node_modules','dist','build','test-results','playwright-report'}
+    for parent,dirs,files in os.walk(ROOT):
+        dirs[:]=[d for d in dirs if d not in excluded]
+        for name in dirs+files:
+            if name in {'.git','.DS_Store'} or ((name=='.env' or name.startswith('.env.')) and name!='.env.example'):
+                continue
+            path=Path(parent)/name
+            if path.is_symlink():
+                raise ValueError('Publication path is a symlink: '+str(path.relative_to(ROOT)))
+            if path.is_file():
+                roots.append(path)
     return roots
 
 
@@ -71,10 +83,13 @@ class SkillContractTests(unittest.TestCase):
                   r'\b192\.168\.\d{1,3}\.\d{1,3}\b',r'\b10\.\d{1,3}\.\d{1,3}\.\d{1,3}\b',
                   r'\b172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}\b',
                   r'-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----',
-                  r'\b(?:tvly|sk)-[A-Za-z0-9_\-]{20,}\b']
+                  r'\b(?:tvly|sk)-[A-Za-z0-9_\-]{20,}\b',
+                  r'\bgh[pousr]_[A-Za-z0-9]{30,}\b',r'\bgithub_pat_[A-Za-z0-9_]{30,}\b',
+                  r'\bAKIA[0-9A-Z]{16}\b',r'op://[A-Za-z0-9_-]+/[A-Za-z0-9_-]+/']
         for file in public_files():
             with self.subTest(file=str(file.relative_to(ROOT))):
-                self.assertNotIn(file.suffix,{'.blend','.blend1','.glb','.mp4','.png','.jpg','.exr'})
+                self.assertNotIn(file.suffix,ASSET_SUFFIXES)
+                self.assertFalse(file.is_symlink())
                 text=file.read_text()
                 for pattern in patterns:
                     self.assertIsNone(re.search(pattern,text),pattern)
@@ -82,12 +97,12 @@ class SkillContractTests(unittest.TestCase):
                     self.assertIn(address,{'example.com','example.org','example.net'})
 
     def test_repository_contains_no_task_assets(self):
-        allowed={'skills','docs','tests','.github','.git','.local','.venv'}
+        allowed={'skills','docs','tests','templates','.github','.git','.local','.venv'}
         for child in ROOT.iterdir():
             if child.is_dir():
                 self.assertIn(child.name,allowed)
             else:
-                self.assertNotIn(child.suffix,{'.blend','.blend1','.glb','.mp4','.png','.jpg','.exr'})
+                self.assertNotIn(child.suffix,ASSET_SUFFIXES)
 
     def test_working_log_has_required_sections(self):
         text=(ROOT/'docs'/'working.md').read_text()

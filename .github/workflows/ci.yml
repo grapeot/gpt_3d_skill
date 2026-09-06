@@ -14,3 +14,20 @@ jobs:
           uv venv --python 3.12
           source .venv/bin/activate
           python -m unittest discover -s tests -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: templates/mobile_walkthrough/package-lock.json
+      - name: Install template dependencies
+        working-directory: templates/mobile_walkthrough
+        run: npm ci
+      - name: Test and build template
+        working-directory: templates/mobile_walkthrough
+        run: npm test && npm run build
+      - name: Install test browser
+        working-directory: templates/mobile_walkthrough
+        run: npx playwright install --with-deps chromium
+      - name: Browser acceptance
+        working-directory: templates/mobile_walkthrough
+        run: npm run test:e2e

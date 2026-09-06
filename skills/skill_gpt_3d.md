@@ -38,6 +38,7 @@ When a user requests a complete pipeline (from concept to interactive web viewer
 3. **Export and Bake**: Execute [`web_walkthrough.md`](web_walkthrough.md) to bake static lighting/materials into GLB, extract colliders, and configure the interactive web viewer.
 
 ## Resources
+- **Mobile Viewer Template**: [`templates/mobile_walkthrough`](../templates/mobile_walkthrough/README.md). Copy its tested application shell into a task workspace; keep scene-specific assets outside this repository.
 - **Blender CLI / Python**: Headless automation and RNA/operator introspection.
 - **FFmpeg & ffprobe**: Video stream encoding and container decode validation.
 - **Node.js, Vite & Three.js**: Minimal static web walkthrough runtime.

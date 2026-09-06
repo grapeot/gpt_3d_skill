@@ -7,6 +7,8 @@ Verification in `gpt_3d_skill` is divided into two distinct operational categori
 
 ## In-Repository Offline Tests
 
+Template source is included in privacy and relative-link checks. Dependencies, browser reports and generated fixtures are excluded from publication. The standalone template has Node unit tests and Playwright acceptance tests, including an actual generated GLB and a production build under a nested URL path; no Blender installation is needed for those tests.
+
 ### Test Execution
 Automated repository tests are run via standard Python unit testing:
 ```bash

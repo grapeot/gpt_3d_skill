@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>3D Walkthrough</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="view"></canvas>
+      <header class="brand">
+        <h1 id="title"></h1>
+        <p id="subtitle"></p>
+        <div id="status" class="status hidden" data-state="loading">
+          <p id="status-text"></p>
+          <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+        </div>
+      </header>
+      <div id="joystick" class="joystick hidden" aria-hidden="true">
+        <div class="joy-base">
+          <div id="joy-knob" class="joy-knob"></div>
+        </div>
+      </div>
+      <footer class="dock">
+        <div class="capsule">
+          <button type="button" id="btn-walk"></button>
+          <button type="button" id="btn-overview"></button>
+          <button type="button" id="btn-reset"></button>
+        </div>
+        <p id="hint" class="hint"></p>
+        <p id="note" class="note"></p>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

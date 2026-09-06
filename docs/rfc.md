@@ -20,7 +20,7 @@
 
 ### 3. Artifact Boundary and Workspace Isolation
 To maintain repository hygiene and prevent unintentional bloat:
-- **Skill Repository**: Strictly limited to documentation, skill markdown files, and structural integrity unit tests.
+- **Skill Repository**: Documentation, focused skills, reusable template source and tests. No user assets or private deployment settings are included.
 - **Task Workspaces**: External directories where all task-specific assets reside:
   - Generator scripts and source `.blend` files.
   - Multi-angle render frames, rendered PNG sequences, and encoded MP4 videos.
@@ -52,6 +52,6 @@ To maintain repository hygiene and prevent unintentional bloat:
 - **Status Notice**: The static display-referred route was exercised in an external task workspace. Architecture/ground used texture atlases and constant-color canopies used per-corner baked lighting. This is not an automatic GLB export promise or a guarantee for dynamic scenes.
 
 ### 6. Tooling and Runtime CLI Philosophy
-- **Initial Pack Scope**: No custom runtime CLI, npm package, or React framework is bundled.
+- **Reusable Template**: `templates/mobile_walkthrough` is a standalone vanilla Three.js/Vite application. A scene manifest supplies model paths, collisions, player/camera settings and lighting mode; synthetic demo geometry is explicit rather than a failure fallback. No React framework or analytics is bundled.
 - **Experimental Scripting**: Pipeline automation scripts remain in task-specific workspaces during early iteration.
 - **Future CLI Evaluation**: A shared, generic CLI may be introduced only if cross-project automation patterns prove genuinely reusable and explicit user authorization is granted.
