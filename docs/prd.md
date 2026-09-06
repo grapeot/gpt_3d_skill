@@ -17,6 +17,7 @@ A user or coding agent can:
 1. Procedurally generate clean, editable, and stylistically consistent 3D architectural scenes in Blender from reference material.
 2. Animate and render multi-stage architectural showcases (such as orbit sweeps, exploded views, structural assemblies, and staged prop entries) into verified high-definition video.
 3. Export and deploy an interactive web-based first-person walkthrough that faithfully reproduces Blender's visual lighting, materials, and contact shadows without relying on heavy frontend frameworks.
+4. Author a character rig that respects its approved motion model, export a deforming asset, and optionally drive it with local browser capture while preserving consent and verifiable acceptance boundaries.
 
 ## Core Skills
 
@@ -44,11 +45,16 @@ A user or coding agent can:
   - Responsive first-person navigation supporting desktop pointer lock, click-drag fallback, and mobile touch joysticks.
   - Robust state handling for window blur, Escape pausing, and collision boundary enforcement.
 
+### 4. Character Rigging and Motion Capture (`skills/character_rigging_mocap.md`)
+- **Focus**: Reference-faithful articulation, rest binding, skin export/reload and optional local browser retargeting.
+- **Capabilities**: Explicit target motion-model selection, continuous skin where required, shared rig definitions, camera-free presets, capture cancellation/cleanup, and clean non-root static delivery.
+- **Acceptance**: Actual reloaded vertex deformation and multi-view poses; local capture tested separately through mock, positive-fixture and authorized live-device evidence. A passing test does not replace user approval of the character's movement.
+
 ## Artistic Style and Task Boundaries
 
 ### Preserving Approved Visual Style
 - An approved visual style—defined by material palette, procedural texturing, and lighting contrast—must be strictly maintained across all downstream stages.
-- Web export must not compromise visual fidelity by falling back to flat vertex colors or rudimentary dynamic lighting; baking is utilized specifically to retain Blender's visual nuance.
+- Static architectural export uses baking where needed to retain approved Blender appearance. Moving characters preserve skins and explicitly chosen runtime shading; they must not inherit pose-dependent static lightmaps as a universal fidelity rule.
 
 ### Task and Workspace Boundaries
 - **Source Preservation**: Master `.blend` files remain clean, unbaked, and fully editable. Baking, joining, and decimation operations must be performed on derivative export copies or non-destructive dependency graphs.
@@ -69,3 +75,5 @@ A user or coding agent can:
 | **Web Walkthrough** | Visual Fidelity | Paired-camera render comparison demonstrates diffuse lighting and contact shadow parity with Blender reference. |
 | **Web Walkthrough** | Navigation & Control | Desktop pointer lock with drag/WASD fallback, responsive mobile touch controls, and immediate motion halt on Escape. |
 | **Web Walkthrough** | Collision Integrity | Player constrained by scene boundaries and obstacle colliders derived prior to mesh batching. |
+| **Character Rigging** | Motion and Bind Integrity | Approved visible freedoms, compatible rest/inverse binds, valid weights and actual posed deformation after reload. |
+| **Motion Capture** | Runtime and Evidence | Correct coordinate/mirror mapping, bounded in-flight work, cleanup on cancellation, complete clean-build assets, and separate fixture/live/user-acceptance claims. |

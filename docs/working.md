@@ -2,6 +2,19 @@
 
 ## Changelog
 
+### 2026-09-05: Character Rigging Skill Publication Preparation
+- Added the reviewed fourth focused skill and extended the existing sole router; no runtime app, model, media or fixture entered this repository.
+- Transferred observed rig/export, attachment, local-capture, clean-build and review lessons from an external character project. The new contract starts with target motion-model choice, not a human skeleton template.
+- Preserved the static architectural bake path while separating deforming characters and allowing editable generator-plus-rig sources. Existing mobile template behavior and viewer scope remain unchanged.
+- Prepared the integration in an isolated worktree. Publication and current integration-test results are not claimed by this entry.
+
+### 2026-09-05: Shoulder-Flap Follow-Up After the Documentation Gate
+- The external application now uses five bones with one shoulder actuator per wing and no elbow/Bend control. The source elbow points are deliberately ignored by mapping and calibration; this does not claim estimator immunity to real human elbow motion.
+- Reload, weight validity, one connected closed yellow surface, finite shoulder sections and actual multi-angle pose checks ran. The intended mid/distal region preserves vertex-pair distances across 26 poses/sweep samples; the root remains softly weighted.
+- Candidate testing exposed head intrusion during combined tilt, then waist-side weight spill, then further intrusion at the declared upper rotation limit. An authored depth correction, a more local weight envelope and a tighter operational angle limit addressed these sampled cases without relaxing collision thresholds. The final head check covers 67 discrete cases, not a continuous collision proof.
+- A fresh-source install/build, default tests and a real CPU detector positive-fixture-to-mesh browser path passed. No runtime assets or reports were copied into this skill repository. Personal-camera behavior, phones/Safari, physical latency and user aesthetic approval remain unverified.
+- Old articulated helpers explicitly reject the new rig contract, and old snapshots are preserved. This was migration hygiene added before allowing those tools to run, not a claim that a NaN failure was observed.
+
 ### 2026-09-06: Narrow the Viewer Scope
 - Removed runtime demo generation, alternate realtime lighting, mode selection and broad camera/quality configuration. The template now does one job: view and walk around a supplied baked-unlit scene.
 - Kept useful collision, input, color-pipeline and browser checks; moved synthetic scenery data to test fixtures instead of shipping a runtime demo.
@@ -80,3 +93,14 @@
 - **Color Buffers**: Inspect whether image-buffer floats contain encoded or scene-linear values before assigning them to vertex colors; the exercised PNG reader exposed encoded sRGB values.
 - **Projection Matching**: Perspective-to-orthographic camera reuse retained sensor-fit state and initially invalidated the overview comparison. Matching evaluated projection, not just location and an apparent scale value, fixed the comparison.
 - **Status**: Static baked appearance passed the external paired-view and control checks. Fine filtering/specular differences remain, and physical phone performance is not certified.
+
+### 5. Character Rigging and Local Capture
+- **Motion-Model Mismatch**: An articulated two-link flipper passed structural tests yet the user preferred an earlier whole-appendage silhouette. Human elbow landmarks do not require a visible target elbow. The subsequent shoulder-only implementation has external runtime evidence, but user approval remains separate.
+- **Attachment Evidence**: A moving skeleton did not prevent pointed, separate flipper roots from looking detached. A genuinely connected surface and blended shoulder weights were needed; object-level merging was insufficient.
+- **Reach vs Gesture**: Lowering a near-limit hand target increased bend but changed head-holding into cheek-holding. Pose-only and regenerated-asset comparisons separated parameter effects from bind/shape limitations.
+- **Stale Rig Constraints**: A diagnostic helper kept an old elbow limit after the asset/controller changed. Shared definitions and revisioned, non-overwriting output restored a meaningful comparison.
+- **Clean Build and Failure Semantics**: Ignored detector assets caused a successful but incomplete clean build; a separate character-load failure falsely claimed presets remained usable. Fixed resource verification and distinct loading states addressed both.
+- **Evidence Levels**: Real empty inference plus isolated mapper tests left a nonempty integration gap. A public positive fixture closed that path but did not certify live-camera behavior. A reviewer seam claim was withdrawn after primary image and topology evidence contradicted it.
+- **Single-Bone Weight Spill**: Removing the elbow did not prevent unintended shoulder influence from dragging the waist. A localized envelope and lower-body weight guard were checked against actual renders; intended root blending was retained.
+- **Range Checks Beyond Presets**: Safe named poses missed head intersections at the allowed shoulder limit combined with head roll. Limits were tightened and sampled jointly, without changing the inside/outside threshold or claiming all-angle collision safety.
+- **Shape vs Actuator Count**: Actual rigid-region weights and invariant internal vertex-pair distances supported whole-flap behavior. The mere absence of an elbow node would not have supplied that evidence.

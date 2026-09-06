@@ -16,6 +16,7 @@
   - Modeling queries -> [`skills/blender_modeling.md`](../skills/blender_modeling.md)
   - Animation/video queries -> [`skills/blender_animation.md`](../skills/blender_animation.md)
   - Real-time web viewer queries -> [`skills/web_walkthrough.md`](../skills/web_walkthrough.md)
+  - Character rigging and local capture queries -> [`skills/character_rigging_mocap.md`](../skills/character_rigging_mocap.md)
 - **Domain Skills Stay Local**: Specialized skills remain local to this repository and are invoked selectively, preventing context window saturation.
 
 ### 3. Artifact Boundary and Workspace Isolation
@@ -26,7 +27,7 @@ To maintain repository hygiene and prevent unintentional bloat:
   - Multi-angle render frames, rendered PNG sequences, and encoded MP4 videos.
   - Exported GLB models, baked texture atlases, and collider JSON files.
   - Vite / Three.js web application files and build artifacts.
-- **Source Immutability**: The master `.blend` scene is preserved as an editable source of truth. Export preparation (mesh joining, UV generation, baking, decimation) is performed on non-destructive evaluation graphs or temporary export copies.
+- **Source Immutability**: Preserve the master `.blend` scene or generator-plus-rig definition as the editable source. Export preparation (mesh joining, UV generation, baking, decimation) uses non-destructive evaluation graphs or temporary export copies.
 
 ### 4. Geometry and Collision Pipeline: Pre-Batch Collider Separation
 - **The Problem**: Real-time rendering efficiency in Three.js requires batching meshes sharing identical materials into unified geometries to reduce draw calls. However, batching combines disparate objects into a single mesh, destroying individual bounding boxes required for spatial collision detection.
@@ -55,3 +56,11 @@ To maintain repository hygiene and prevent unintentional bloat:
 - **Reusable Template**: `templates/mobile_walkthrough` has one baked-unlit GLB path. The manifest contains only assets, background, spawn/bounds and overview pose. Runtime world/demo generation, realtime lighting modes and generic camera/quality tuning are excluded. Generated geometry belongs to test fixtures only; navigation uses fixed defaults.
 - **Experimental Scripting**: Pipeline automation scripts remain in task-specific workspaces during early iteration.
 - **Future CLI Evaluation**: A shared, generic CLI may be introduced only if cross-project automation patterns prove genuinely reusable and explicit user authorization is granted.
+
+### 7. Dynamic Character Branch
+
+Character tasks establish intended articulation before selecting a skeleton. Procedural rig sources are first-class alongside Blender scenes. The exported asset retains skinning, and the consumer reconstructs any required deformation-aware shader, normal, outline and shadow behavior.
+
+Do not blindly apply the static architectural merge/evaluate/bake branch to moving characters. It may discard required skin data or encode pose-dependent shadows; surface-color bakes are not prohibited. Static surroundings can still use the existing walkthrough workflow.
+
+Capture, inference and rendering have distinct lifecycles. A failed detector can leave a loaded character's demo usable; a failed character cannot. Verification distinguishes offline rig data, synthetic/mock tests, real positive fixtures, authorized live capture and user-approved motion style. These are external execution contracts, not new runtime components in this repository.
