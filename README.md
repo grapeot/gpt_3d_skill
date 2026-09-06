@@ -6,6 +6,7 @@ A vendor-agnostic collection of skills for procedural 3D modeling, animation and
 
 - **Procedural 3D Modeling (`blender_modeling`)**: Deterministic geometry generation in Blender, procedural material assignment, structured scene hierarchies, geometry and normal checks, and self-contained asset packaging.
 - **Cinematic Architectural Animation (`blender_animation`)**: Multi-stage choreographies (orbit showcases, exploded architectural views, assembly sequences, staged object entry), matrix transform synchronization, and frame-accurate FFmpeg video encoding.
+- **[Hybrid 3D / AI Video](skills/hybrid_ai_video.md)**: Blender start frames with generative character acting, per-beat narration, unified scoring, foley alignment, and explicit editorial and QA boundaries.
 - **Interactive Web Walkthroughs (`web_walkthrough`)**: Static high-fidelity WebGL delivery via texture baking, glTF/GLB export, pre-batch collision boundaries, desktop pointer-lock fallback, and responsive mobile touch navigation.
 
 ## Installation

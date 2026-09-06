@@ -29,6 +29,7 @@ Evaluate incoming user tasks and route to the appropriate focused domain skill:
 |---|---|---|
 | Procedural geometry creation, architectural modeling, materials, scene hierarchy, geometry and normal checks. | [`blender_modeling.md`](blender_modeling.md) | Canonical `.blend` scene, generator script, multi-angle render previews. |
 | Camera choreography, orbit sweeps, exploded views, component assembly, staged prop entry, frame sequence rendering, video encoding. | [`blender_animation.md`](blender_animation.md) | Rendered PNG frame sequence, verified MP4 video file, decode validation log. |
+| Blender starting frames, AI-generated character acting, editorial mix and QA; keep exact mechanical trajectories in `blender_animation.md`. | [`hybrid_ai_video.md`](hybrid_ai_video.md) | Edited film, source references, shot prompts and trims, audio stems, timeline, attempt ledger, and QA manifest. |
 | WebGL presentation, glTF/GLB export, static texture baking, Three.js first-person navigation, pre-batch collision. | [`web_walkthrough.md`](web_walkthrough.md) | Baked GLB asset, `colliders.json`, static Vite/Three.js walkthrough app. |
 
 ### End-to-End Pipeline Execution
