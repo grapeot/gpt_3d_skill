@@ -1,0 +1,4 @@
+[
+  {"id": "wall", "type": "aabb", "minX": -1, "maxX": 1, "minZ": -3, "maxZ": -2},
+  {"id": "column", "type": "cylinder", "x": 3, "z": 1, "radius": 0.4}
+]

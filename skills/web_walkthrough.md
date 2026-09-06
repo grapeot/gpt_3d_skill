@@ -23,6 +23,7 @@ Deliver an interactive, real-time 3D architectural walkthrough in the browser us
 - **Coordinate Conversion Integrity**: Blender Z-up coordinates convert cleanly to WebGL Y-up coordinates: `(x, y, z) -> (x, z, -y)`.
 
 ## Resources
+- **Reusable Template**: [`templates/mobile_walkthrough`](../templates/mobile_walkthrough/README.md) includes configurable GLB loading, touch/desktop controls, collisions, baked/realtime lighting and tests. Copy it into the task workspace rather than rebuilding those components.
 - **Node.js, Vite & Three.js**: Minimal static web walkthrough application framework without heavy UI runtime dependencies.
 - **Blender CLI & Cycles Baking**: Headless geometry evaluation, UV atlas generation, and diffuse light baking.
 - **Playwright / Browser Automation**: Headless validation of canvas rendering, pointer-lock fallback, and touch emulation.
@@ -33,6 +34,7 @@ Deliver an interactive, real-time 3D architectural walkthrough in the browser us
 
 ## Output Specification
 Task workspaces should contain the following deliverable roles. Names below are examples; preserve an existing task layout and report its actual paths.
+- `public/scene.json`: The template's scene configuration. Coordinates are glTF/Three.js Y-up; asset paths resolve relative to this file and support nested deployment paths.
 - `export_baked_glb.py`: Blender script performing UV atlas packing, light baking, coordinate conversion, and GLB export.
 - `colliders.json`: Pre-batch bounding boxes and collision hulls extracted from individual architectural elements.
 - `app/`: Minimal Vite + Three.js application source (`index.html`, `main.js`, `controls.js`, `style.css`).
@@ -78,13 +80,22 @@ Decide explicitly between two color management strategies:
 - Extract individual obstacle bounding boxes and collision primitives to `colliders.json` *before* visual batching:
 ```python
 # Extract pre-batch collision metadata
+import json
+from mathutils import Vector
+
 colliders = []
 for obj in obstacle_objects:
-    bbox = [list(obj.matrix_world @ mathutils.Vector(corner)) for corner in obj.bound_box]
-    colliders.append({"name": obj.name, "bbox": bbox})
+    points = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
+    colliders.append({
+        "id": obj.name, "type": "aabb",
+        "minX": min(p.x for p in points), "maxX": max(p.x for p in points),
+        "minZ": -max(p.y for p in points), "maxZ": -min(p.y for p in points),
+    })
 with open("colliders.json", "w") as fp:
     json.dump(colliders, fp, indent=2)
 ```
+
+The template consumes these Y-up horizontal coordinates directly. A [schema example](../templates/mobile_walkthrough/public/colliders.example.json) includes both an AABB and a cylinder; its format is covered by the template tests. An empty array is valid for an obstacle-free scene.
 
 ### 7. Dual Desktop Navigation and Pointer Lock Fallback
 Handle unavailable APIs, synchronous exceptions, rejected promises and `pointerlockerror`. After an explicit user action, offer drag-look plus WASD when locking fails. Escape, blur, visibility changes and mode switches must disable movement and clear keys, joystick and active pointers. Test the fallback with Pointer Lock deliberately disabled; merely listening for lock changes does not implement a fallback.

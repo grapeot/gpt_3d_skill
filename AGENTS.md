@@ -17,6 +17,7 @@
   - `skills/blender_animation.md`: Focused architectural animation and video encoding capability.
   - `skills/web_walkthrough.md`: Focused WebGL/Three.js walkthrough capability with baked fidelity.
 - `tests/`: Offline document integrity and repository hygiene checks.
+- `templates/`: Reusable application source and synthetic test fixtures, without user models or deployment data.
 
 ## Operational Rules for Agents
 
@@ -36,9 +37,9 @@
 - Always activate the virtual environment (`source .venv/bin/activate`) before running Python commands or tools.
 
 ### Artifact Boundary Policy
-- This repository contains only skills, documentation, and structural verification tests.
+- This repository contains skills, documentation, reusable templates and tests.
 - Never store runtime user artifacts, temporary build output, `.blend` project files, rendered PNG sequences, MP4 video files, or exported GLB models inside this repository.
-- All task-specific generation scripts, reference images, source 3D files, render outputs, and web builds must be stored in dedicated task workspaces external to this repository.
+- All task-specific generation scripts, reference images, source 3D files, render outputs, and deployed web builds must be stored in dedicated task workspaces external to this repository. Templates may generate synthetic local test assets; those artifacts must remain ignored.
 
 ### Testing Contract
 - Repository tests are executed with:
@@ -50,5 +51,5 @@
 - Document integrity tests do not certify visual or rendering output. 3D visual certification occurs via opt-in checks in external task workspaces.
 
 ### Scope and Minimal Dependencies
-- This initial pack provides loose Markdown skill instructions only.
-- Do not introduce runtime CLI frameworks, React/frontend application code, or heavy dependency packages into this repository.
+- Keep a single Markdown root/router skill, with focused instructions and reusable templates linked locally.
+- The mobile walkthrough template uses vanilla Three.js and Vite. Do not add React, native-app wrappers, trackers, private endpoints or heavyweight frameworks without a concrete requirement.

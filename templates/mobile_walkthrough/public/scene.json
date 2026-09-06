@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "title": "3D Walkthrough",
+  "subtitle": "Generated sample scene",
+  "scene": {
+    "mode": "demo",
+    "lighting": "realtime",
+    "backgroundSrgb": [0.78, 0.82, 0.84]
+  },
+  "player": {
+    "spawn": [0, 1.6, 5],
+    "yaw": 0,
+    "pitch": 0,
+    "speed": 3,
+    "radius": 0.35,
+    "bounds": { "center": [0, 0], "radius": 8 }
+  },
+  "camera": { "fov": 65, "near": 0.08, "far": 80 },
+  "overview": {
+    "target": [0, 0.4, 0],
+    "position": [8, 7, 11],
+    "minDistance": 4,
+    "maxDistance": 24
+  },
+  "quality": { "maxPixelRatio": 2 }
+}

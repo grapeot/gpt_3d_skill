@@ -2,6 +2,15 @@
 
 ## Changelog
 
+### 2026-09-05: Reusable Mobile Walkthrough Template
+- Added a standalone vanilla Three.js/Vite template with a configurable scene manifest, explicit procedural demo and real GLB loading. No user scene assets, private endpoints, analytics or native-app framework are included.
+- Reused desktop/touch navigation and collision behavior, including pause/reset, Pointer Lock fallback, delayed-grant protection and nonzero-center walk bounds.
+- Added generated GLB and embedded PNG fixtures, including a framebuffer assertion for the display-referred sRGB pipeline and a production nested-path loading test.
+- Aligned the skill's collider example with the runtime schema. Kept deployable asset files visible to a copied template's Git workflow while retaining the skill repository's asset exclusions.
+- Expanded publication hygiene checks to all non-ignored source paths, including new root files and directory symlinks. Replaced the test runner's platform-specific port probe with Node APIs.
+- Local acceptance passed: 9 repository checks, 20 Node tests and 22 browser tests; production build passed. Independent privacy and engineering follow-up closed all review findings.
+- Template work is isolated from concurrent character-rigging changes and will be merged through its own pull request.
+
 ### 2026-09-05: Publication Baseline
 - Reviewed all 14 publication candidate files for private data and unintended assets. No blocking privacy findings remained; ignored runtime caches and local artifacts are excluded from the publication set.
 - Re-ran all nine offline checks successfully and prepared the documentation-only baseline on `master`. The reusable application template will be introduced through a separate pull request.
