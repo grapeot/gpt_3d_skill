@@ -1,7 +1,7 @@
 # Agent Guidelines for gpt_3d_skill
 
 ## Project Role and Overview
-`gpt_3d_skill` is an open, modular repository of agent-executable loose Markdown skills designed for 3D procedural modeling, cinematic architectural animation, and interactive WebGL walkthroughs using Blender and modern browser tooling. The skill pack is vendor-agnostic and usable by humans and coding agents alike.
+`gpt_3d_skill` is an open, modular repository of agent-executable loose Markdown skills for procedural modeling, cinematic architectural animation, WebGL walkthroughs, and character rigging/local motion capture. The skill pack is vendor-agnostic and usable by humans and coding agents alike.
 
 ## Repository Structure
 - `AGENTS.md`: Operational policies, workspace rules, and test contracts for coding agents.
@@ -15,7 +15,9 @@
   - `skills/skill_gpt_3d.md`: Sole root router skill exposed to agents.
   - `skills/blender_modeling.md`: Focused procedural modeling capability.
   - `skills/blender_animation.md`: Focused architectural animation and video encoding capability.
+  - `skills/hybrid_ai_video.md`: Focused hybrid 3D and AI video production capability.
   - `skills/web_walkthrough.md`: Focused WebGL/Three.js walkthrough capability with baked fidelity.
+  - `skills/character_rigging_mocap.md`: Focused character motion-model, skinning, retargeting and local capture capability.
 - `tests/`: Offline document integrity and repository hygiene checks.
 - `templates/`: Reusable application source and synthetic test fixtures, without user models or deployment data.
 

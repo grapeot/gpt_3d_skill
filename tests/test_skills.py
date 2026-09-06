@@ -8,7 +8,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
-FOCUSED=('blender_modeling.md','blender_animation.md','web_walkthrough.md','hybrid_ai_video.md')
+FOCUSED=('blender_modeling.md','blender_animation.md','web_walkthrough.md','hybrid_ai_video.md','character_rigging_mocap.md')
 ASSET_SUFFIXES={'.blend','.blend1','.glb','.gltf','.bin','.fbx','.obj','.stl',
                 '.mp4','.mov','.webm','.mkv','.png','.jpg','.jpeg','.webp','.exr','.hdr','.tif','.tiff'}
 
@@ -55,6 +55,22 @@ class SkillContractTests(unittest.TestCase):
                 for heading in ('Goal','Boundaries','Acceptance Criteria','Resources','Output Specification','Observed Pitfalls'):
                     self.assertIn('## '+heading,text)
                 self.assertIn('Type: Workflow',text)
+
+    def test_character_routing_and_evidence_contract(self):
+        router=(ROOT/'skills'/'skill_gpt_3d.md').read_text()
+        for contract in ('### Dynamic Character Branch','generator-plus-rig configuration',
+                         'Preserve skins','complete static architectural pipeline'):
+            self.assertIn(contract,router)
+        skill=(ROOT/'skills'/'character_rigging_mocap.md').read_text()
+        for contract in ('**Motion Model Before Bone Count**','**Privacy and Authorization**',
+                         '**Bind and Skin Integrity**','**Capture Lifecycle**',
+                         '### Verification Methodology and Evidence Tiers'):
+            self.assertIn(contract,skill)
+        evidence=skill.split('### Verification Methodology and Evidence Tiers',1)[1].split('## Observed Pitfalls',1)[0]
+        for tier in ('Documentation integrity','inverse-bind recovery','Synthetic landmark replay',
+                     'Mock permission/capture','empty-frame smoke','positive fixture',
+                     'Authorized live-person','User approval'):
+            self.assertIn(tier,evidence)
 
     def test_relative_links_and_anchors_resolve(self):
         for file in public_files():

@@ -68,3 +68,16 @@ All execution checks occur in task-specific workspaces external to this reposito
 
 ## Baked Workflow Status
 An external static-courtyard exercise completed source-preserving preparation, a mixed texture/vertex-light bake, three paired camera views, GLB extension checks and browser interaction checks. Image error improved over the earlier unbaked viewer and visual review found no blocking defects. Physical-phone performance and dynamic relighting were not tested. These results are not a substitute for running acceptance checks on the next task.
+
+## Character Rigging and Capture Acceptance
+
+The character-focused skill is [`character_rigging_mocap.md`](../skills/character_rigging_mocap.md). Repository tests check its document contract and routing, not GLB assets or camera operation; all execution evidence remains outside this repository.
+
+- Verify the approved motion abstraction before bone count or IK choices. Rejected articulation is not repaired merely by passing numeric tests.
+- Reload the rigged asset and check weights, inverse-bind recovery, actual vertex deformation and intended attachment connectivity. Inspect fixed and intermediate poses from several views, including the entire render chain.
+- Test synthetic coordinate/mirror/confidence cases and mock cancellation/late-result cleanup independently.
+- Exercise a real detector with a provenance-checked positive fixture through the controller, mapper and reloaded mesh. An empty-frame smoke alone does not test this nonempty path.
+- Build from clean source under the intended static base and verify required model/WASM/Worker resources without ignored workstation caches.
+- Keep authorized live-camera behavior, named-device performance and user approval separate from fixture or structural checks.
+- For a declared whole-flap motion model, test that ignored elbow landmarks cannot alter output/calibration while shoulder/wrist inputs remain fixed, and that the intended rigid region retains shape under shoulder sweeps. This is not a universal rigid-limb requirement for soft characters.
+- Check representative joint-limit combinations as well as named presets. State which sampled vertices, fields and angles were examined rather than calling finite tests a complete collision proof.
