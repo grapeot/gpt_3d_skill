@@ -14,9 +14,9 @@ This repository provides loose Markdown skill definitions designed for direct in
 
 ## Reuse the Viewer
 
-Start from [`templates/mobile_walkthrough/`](templates/mobile_walkthrough/README.md) instead of rewriting the controls. Copy that directory into a task workspace, run `npm ci`, then `npm run dev`. The included demo is generated from simple geometry; it contains no user model.
+Start from [`templates/mobile_walkthrough/`](templates/mobile_walkthrough/README.md) instead of rewriting the controls. Copy that directory into a task workspace, supply your baked GLB and collider file, run `npm ci`, then `npm run dev`. No runtime demo or user model is bundled.
 
-Configure `public/scene.json` with your GLB, collider file, spawn point, bounds and lighting mode. The template includes touch movement/look, desktop Pointer Lock fallback, overview/reset controls, baked unlit rendering, unit tests and Playwright checks. `BASE_PATH` supports deployment below a website subpath. It is a mobile-friendly webpage, not a native app or physics engine.
+Configure `public/scene.json` with asset paths, background, spawn point, walk bounds and overview pose. The template keeps touch/keyboard movement, collision, reset/overview and one baked-unlit rendering path. There are no renderer modes or broad camera/quality knobs. `BASE_PATH` supports a website subpath. Existing unit and browser tests remain.
 
 ### Agent-Assisted Installation
 

@@ -108,75 +108,42 @@ export function assertSpawnValid(player, colliders) {
 
 export function validateConfig(raw) {
   if (!isObject(raw)) fail('scene.json must be an object');
-  if (raw.schemaVersion !== 1) fail('schemaVersion must be 1');
   if (typeof raw.title !== 'string' || !raw.title.trim()) fail('title must be a non-empty string');
-  if (typeof raw.subtitle !== 'string' || !raw.subtitle.trim()) fail('subtitle must be a non-empty string');
   if (!isObject(raw.scene)) fail('scene must be an object');
-  if (raw.scene.mode !== 'demo' && raw.scene.mode !== 'model') {
-    fail('scene.mode must be "demo" or "model"');
-  }
-  if (raw.scene.lighting !== 'realtime' && raw.scene.lighting !== 'baked') {
-    fail('scene.lighting must be "realtime" or "baked"');
-  }
   const backgroundSrgb = vecN(raw.scene.backgroundSrgb, 3, 'scene.backgroundSrgb').map((n, i) => (
     unitChannel(n, `scene.backgroundSrgb[${i}]`)
   ));
-  let modelUrl = null;
-  let collidersUrl = null;
-  if (raw.scene.mode === 'model') {
-    modelUrl = assertRelativeAssetPath(raw.scene.modelUrl, 'scene.modelUrl');
-    collidersUrl = assertRelativeAssetPath(raw.scene.collidersUrl, 'scene.collidersUrl');
-  }
+  const modelUrl = assertRelativeAssetPath(raw.scene.modelUrl, 'scene.modelUrl');
+  const collidersUrl = assertRelativeAssetPath(raw.scene.collidersUrl, 'scene.collidersUrl');
 
   if (!isObject(raw.player)) fail('player must be an object');
   const spawn = vecN(raw.player.spawn, 3, 'player.spawn');
-  const yaw = finiteNumber(raw.player.yaw, 'player.yaw');
-  const pitch = finiteNumber(raw.player.pitch, 'player.pitch');
-  const speed = finitePositive(raw.player.speed, 'player.speed');
-  const radius = finitePositive(raw.player.radius, 'player.radius');
+  const radius = 0.35;
   if (!isObject(raw.player.bounds)) fail('player.bounds must be an object');
   const center = vecN(raw.player.bounds.center, 2, 'player.bounds.center');
   const boundsRadius = finitePositive(raw.player.bounds.radius, 'player.bounds.radius');
   if (boundsRadius <= radius) fail('player.bounds.radius must be greater than player.radius');
 
-  if (!isObject(raw.camera)) fail('camera must be an object');
-  const fov = finitePositive(raw.camera.fov, 'camera.fov');
-  if (fov >= 180) fail('camera.fov must be less than 180');
-  const near = finitePositive(raw.camera.near, 'camera.near');
-  const far = finitePositive(raw.camera.far, 'camera.far');
-  if (far <= near) fail('camera.far must be greater than camera.near');
-
   if (!isObject(raw.overview)) fail('overview must be an object');
   const target = vecN(raw.overview.target, 3, 'overview.target');
   const position = vecN(raw.overview.position, 3, 'overview.position');
-  const minDistance = finitePositive(raw.overview.minDistance, 'overview.minDistance');
-  const maxDistance = finitePositive(raw.overview.maxDistance, 'overview.maxDistance');
-  if (maxDistance < minDistance) fail('overview.maxDistance must be >= overview.minDistance');
-
-  if (!isObject(raw.quality)) fail('quality must be an object');
-  const maxPixelRatio = finitePositive(raw.quality.maxPixelRatio, 'quality.maxPixelRatio');
 
   return {
-    schemaVersion: 1,
     title: raw.title.trim(),
-    subtitle: raw.subtitle.trim(),
     scene: {
-      mode: raw.scene.mode,
       modelUrl,
       collidersUrl,
-      lighting: raw.scene.lighting,
       backgroundSrgb,
     },
     player: {
       spawn,
-      yaw,
-      pitch,
-      speed,
+      yaw: Math.atan2(spawn[0] - target[0], spawn[2] - target[2]),
+      pitch: 0,
+      speed: 3,
       radius,
       bounds: { center, radius: boundsRadius },
     },
-    camera: { fov, near, far },
-    overview: { target, position, minDistance, maxDistance },
-    quality: { maxPixelRatio },
+    camera: { fov: 65, near: 0.05, far: Math.max(200, boundsRadius * 5) },
+    overview: { target, position, minDistance: 4, maxDistance: Math.max(30, boundsRadius * 8) },
   };
 }

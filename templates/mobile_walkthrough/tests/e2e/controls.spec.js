@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { getState, mockPointerLock, waitReady } from './helpers.mjs';
+import { expect } from '@playwright/test';
+import { test, getState, mockPointerLock, waitReady } from './helpers.mjs';
 
 async function waitMoved(page, axis, compare, start) {
   await page.waitForFunction(

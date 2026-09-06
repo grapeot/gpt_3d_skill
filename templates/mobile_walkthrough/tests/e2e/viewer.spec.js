@@ -1,14 +1,13 @@
-import { expect, test } from '@playwright/test';
-import { getState, waitReady } from './helpers.mjs';
+import { expect } from '@playwright/test';
+import { test, getState, waitReady } from './helpers.mjs';
 
-test('default demo renders a generated sample scene', async ({ page }) => {
+test('viewer renders the supplied GLB fixture', async ({ page }) => {
   await page.goto('/');
   await waitReady(page);
-  await expect(page.locator('#subtitle')).toHaveText('Generated sample scene');
   await expect(page.locator('#title')).toHaveText('3D Walkthrough');
   const state = await getState(page);
-  expect(state.sceneMode).toBe('demo');
-  expect(state.lighting).toBe('realtime');
+  expect(state.sceneMode).toBe('model');
+  expect(state.lighting).toBe('baked');
   expect(state.ready).toBe(true);
   expect(state.drawCalls).toBeGreaterThan(0);
   expect(state.triangles).toBeGreaterThan(0);
@@ -22,5 +21,5 @@ test('default demo renders a generated sample scene', async ({ page }) => {
   })));
   expect(pixel[3]).toBeGreaterThan(0);
   expect(pixel.slice(0, 3).some((channel) => channel > 8)).toBe(true);
-  await page.screenshot({ path: 'test-results/demo.png' });
+  await page.screenshot({ path: 'test-results/viewer.png' });
 });

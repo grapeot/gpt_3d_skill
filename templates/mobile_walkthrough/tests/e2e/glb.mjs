@@ -138,30 +138,18 @@ export function buildBoxGlb({ unlit = true, color = [0.75, 0.62, 0.48, 1], textu
 }
 
 export const modelScene = {
-  schemaVersion: 1,
   title: '3D Walkthrough',
-  subtitle: 'Model fixture',
   scene: {
-    mode: 'model',
     modelUrl: './assets/scene.glb',
     collidersUrl: './assets/colliders.json',
-    lighting: 'baked',
     backgroundSrgb: [0.7, 0.72, 0.74],
   },
   player: {
-    spawn: [0, 1.6, 3],
-    yaw: 0,
-    pitch: 0,
-    speed: 3,
-    radius: 0.35,
+    spawn: [0, 1.6, 5],
     bounds: { center: [0, 0], radius: 8 },
   },
-  camera: { fov: 65, near: 0.08, far: 80 },
   overview: {
     target: [0, 0.4, 0],
     position: [8, 7, 11],
-    minDistance: 4,
-    maxDistance: 24,
   },
-  quality: { maxPixelRatio: 2 },
 };

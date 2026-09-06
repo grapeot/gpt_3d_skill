@@ -43,7 +43,7 @@ test('baked sRGB texture survives the complete color pipeline', async ({ page })
     resolve([...sample]);
   })));
   for (let channel = 0; channel < 4; channel++) expect(Math.abs(pixel[channel] - expected[channel])).toBeLessThanOrEqual(2);
-  await expect(page.locator('#note')).toBeEmpty();
+  await expect(page.locator('#note')).toHaveCount(0);
 });
 
 test('baked lighting errors on lit PBR materials', async ({ page }) => {
@@ -73,9 +73,9 @@ test('model load failure does not fall back to demo', async ({ page }) => {
 });
 
 test('invalid configuration shows an error', async ({ page }) => {
-  await fulfillJson(page, '**/scene.json', { schemaVersion: 2, title: 'Broken' });
+  await fulfillJson(page, '**/scene.json', { ...modelScene, title: '' });
   await page.goto('/');
   await waitError(page);
-  await expect(page.locator('#status-text')).toContainText('schemaVersion');
+  await expect(page.locator('#status-text')).toContainText('title');
   expect((await getState(page)).ready).toBe(false);
 });

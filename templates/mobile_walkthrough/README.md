@@ -1,6 +1,6 @@
-# Vanilla Three.js Mobile Walkthrough Template
+# Minimal Baked 3D Web Viewer
 
-A minimal, dependency-light vanilla Three.js + Vite walkthrough template for mobile touch and desktop browsers (no React, no native app wrapper, no external CDN, no analytics, no bundled user models).
+A baked-unlit Three.js + Vite viewer for mobile touch and desktop browsers. No runtime demo, alternate renderer, native wrapper, CDN or analytics.
 
 ## Setup & Workflow
 Copy this template directory into a dedicated external task workspace.
@@ -16,50 +16,33 @@ Copy this template directory into a dedicated external task workspace.
 - **Build**: `npm run build`
 - **Subpath Build**: `BASE_PATH=/example/viewer/ npm run build` (serve `dist/` at the matching subpath)
 
-The default `public/scene.json` starts in `demo` mode and builds a small generated courtyard in code. The UI subtitle is **Generated sample scene**.
+Supply `public/assets/scene.glb` and `public/assets/colliders.json`, then edit `public/scene.json`. Missing assets show an error; there is no bundled demo fallback.
 
 ## Configuration (`public/scene.json`)
-Edit `public/scene.json` to customize scene, player, camera, and controls:
+Only asset paths, background, spawn/walk bounds and overview pose are configured. Navigation uses fixed defaults; the initial heading faces `overview.target`.
 ```json
 {
-  "schemaVersion": 1,
   "title": "3D Walkthrough",
-  "subtitle": "Generated sample scene",
   "scene": {
-    "mode": "model",
     "modelUrl": "./assets/scene.glb",
     "collidersUrl": "./assets/colliders.json",
-    "lighting": "baked",
     "backgroundSrgb": [0.9, 0.9, 0.95]
   },
   "player": {
     "spawn": [0, 1.6, 0],
-    "yaw": 0,
-    "pitch": 0,
-    "speed": 3.0,
-    "radius": 0.35,
     "bounds": { "center": [0, 0], "radius": 25.0 }
   },
-  "camera": { "fov": 75, "near": 0.1, "far": 1000 },
   "overview": {
     "target": [0, 0, 0],
-    "position": [0, 20, 30],
-    "minDistance": 5,
-    "maxDistance": 80
-  },
-  "quality": { "maxPixelRatio": 2 }
+    "position": [0, 20, 30]
+  }
 }
 ```
 
 ### Conventions & Specs
-- **Coordinates**: glTF / Three.js standard Y-up (meters). Yaw and pitch in radians. Camera FOV in vertical degrees.
+- **Coordinates**: glTF / Three.js standard Y-up in meters. Walk-bound centers are horizontal `[x, z]` pairs.
 - **Asset paths**: `modelUrl` and `collidersUrl` resolve relative to `scene.json`, including nested `BASE_PATH` deployments. Site-root paths such as `/model.glb` are rejected.
-- **Scene Modes**:
-  - `demo`: Generates procedural floor and geometry directly in code (not a placeholder file masquerading as a model).
-  - `model`: Requires both `modelUrl` and `collidersUrl`. No implicit fallback to demo scene if asset loading fails; errors are surfaced directly.
-- **Lighting**:
-  - `baked`: Expects `KHR_materials_unlit` display-referred sRGB glTF assets. Configures renderer with `NoToneMapping` and does not add runtime lights. A lit PBR model in baked mode shows an error instead of a black frame.
-  - `realtime`: PBR lighting with directional and ambient illumination.
+- **Assets**: Both model and collider paths are required. Models must use `KHR_materials_unlit` display-referred sRGB appearance. No runtime lights or tone mapping are added; lit PBR input is rejected.
 - **Colliders**: JSON array containing 2D horizontal collision shapes against player radius:
   - AABB: `{"type": "aabb", "id": "wall_1", "minX": -5, "maxX": -4.8, "minZ": -10, "maxZ": 10}`
   - Cylinder: `{"type": "cylinder", "id": "col_1", "x": 2, "z": 3, "radius": 0.4}`

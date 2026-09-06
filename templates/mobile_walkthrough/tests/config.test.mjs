@@ -8,55 +8,42 @@ import {
   validateColliders,
   validateConfig,
 } from '../src/config.js';
-import { DEMO_COLLIDERS } from '../src/demoScene.js';
+import { TEST_COLLIDERS } from './colliders.mjs';
 
 const root = dirname(fileURLToPath(new URL('../package.json', import.meta.url)));
 
 function validConfig(overrides = {}) {
   return {
-    schemaVersion: 1,
     title: '3D Walkthrough',
-    subtitle: 'Generated sample scene',
     scene: {
-      mode: 'demo',
-      lighting: 'realtime',
+      modelUrl: './assets/scene.glb',
+      collidersUrl: './assets/colliders.json',
       backgroundSrgb: [0.78, 0.82, 0.84],
       ...overrides.scene,
     },
     player: {
       spawn: [0, 1.6, 5],
-      yaw: 0,
-      pitch: 0,
-      speed: 3,
-      radius: 0.35,
       bounds: { center: [0, 0], radius: 8 },
       ...overrides.player,
     },
-    camera: { fov: 65, near: 0.08, far: 80, ...overrides.camera },
     overview: {
       target: [0, 0.4, 0],
       position: [8, 7, 11],
-      minDistance: 4,
-      maxDistance: 24,
       ...overrides.overview,
     },
-    quality: { maxPixelRatio: 2, ...overrides.quality },
   };
 }
 
-test('default public/scene.json validates as demo', () => {
+test('default public/scene.json identifies the required asset files', () => {
   const raw = JSON.parse(readFileSync(join(root, 'public/scene.json'), 'utf8'));
   const config = validateConfig(raw);
-  assert.equal(config.scene.mode, 'demo');
-  assert.equal(config.subtitle, 'Generated sample scene');
-  assertSpawnValid(config.player, DEMO_COLLIDERS);
+  assert.equal(config.scene.modelUrl, './assets/scene.glb');
+  assertSpawnValid(config.player, TEST_COLLIDERS);
 });
 
-test('model mode requires relative asset paths', () => {
+test('requires relative asset paths', () => {
   const config = validateConfig(validConfig({
     scene: {
-      mode: 'model',
-      lighting: 'baked',
       backgroundSrgb: [0.5, 0.5, 0.5],
       modelUrl: './assets/scene.glb',
       collidersUrl: './assets/colliders.json',
@@ -69,8 +56,6 @@ test('model mode requires relative asset paths', () => {
 test('rejects site-root model paths', () => {
   assert.throws(() => validateConfig(validConfig({
     scene: {
-      mode: 'model',
-      lighting: 'baked',
       backgroundSrgb: [0.5, 0.5, 0.5],
       modelUrl: '/model.glb',
       collidersUrl: './colliders.json',
@@ -80,9 +65,9 @@ test('rejects site-root model paths', () => {
 
 test('rejects non-finite and inverted values', () => {
   assert.throws(() => validateConfig(validConfig({ player: { spawn: [0, 1.6, Infinity] } })), /finite/);
-  assert.throws(() => validateConfig(validConfig({ camera: { fov: 65, near: 10, far: 2 } })), /greater/);
+  assert.throws(() => validateConfig(validConfig({ player: { bounds: { center: [0,0], radius: -2 } } })), /greater/);
   assert.throws(() => validateConfig(validConfig({ scene: { backgroundSrgb: [0, 0, 2] } })), /between 0 and 1/);
-  assert.throws(() => validateConfig({ ...validConfig(), schemaVersion: 2 }), /schemaVersion/);
+  assert.throws(() => validateConfig({ ...validConfig(), title: '' }), /title/);
 });
 
 test('empty collider array is valid', () => {
@@ -112,7 +97,7 @@ test('spawn must stay inside bounds and outside colliders', () => {
   const config = validateConfig(validConfig({
     player: { spawn: [0, 1.6, 0], bounds: { center: [0, 0], radius: 8 } },
   }));
-  assert.throws(() => assertSpawnValid(config.player, DEMO_COLLIDERS), /overlaps collider plinth/);
+  assert.throws(() => assertSpawnValid(config.player, TEST_COLLIDERS), /overlaps collider plinth/);
   const outside = validateConfig(validConfig({
     player: { spawn: [0, 1.6, 20], bounds: { center: [0, 0], radius: 8 } },
   }));

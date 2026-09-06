@@ -4,6 +4,15 @@
 `gpt_3d_skill` provides a structured, agent-executable capability pack for procedural 3D modeling, cinematic architectural animation, and interactive WebGL walkthroughs. It bridges the gap between procedural 3D authoring in Blender and real-time interactive presentation in the browser.
 
 ## User Outcome
+
+### Viewer Priorities and Non-Goals
+- **P0**: Load user-supplied baked unlit GLB models, preserve sRGB appearance, and support touch/keyboard walking, basic collision, reset/overview and relative asset paths.
+- **Safeguards**: Retain existing correctness and privacy tests. Tests protect the narrow product; they do not justify adding new runtime capabilities.
+- **Do Not Build by Default**: Runtime demo/world generators, alternate realtime/PBR renderers, native wrappers, physics/game engines, default analytics, broad camera/quality tuning or infrastructure without an observed need.
+- **Delivery First**: For small reuse or publishing requests, target an initial usable result around ten minutes. If scope grows, report completed versus pending work and confirm priorities before optional work delays delivery.
+- **Knowledge Is Not a Roadmap**: General techniques may remain in focused skills; do not turn every documented option into a default template feature. Scene-specific features stay in their task workspaces.
+
+### Skill Outcomes
 A user or coding agent can:
 1. Procedurally generate clean, editable, and stylistically consistent 3D architectural scenes in Blender from reference material.
 2. Animate and render multi-stage architectural showcases (such as orbit sweeps, exploded views, structural assemblies, and staged prop entries) into verified high-definition video.
