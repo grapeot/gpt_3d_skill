@@ -89,7 +89,7 @@ class SkillContractTests(unittest.TestCase):
                         self.assertIn(parsed.fragment,headings(destination.read_text()))
 
     def test_python_examples_parse(self):
-        for file in (ROOT/'skills').glob('*.md'):
+        for file in (ROOT/'skills').rglob('*.md'):
             for code in re.findall(r'```python\n(.*?)```',file.read_text(),re.S):
                 with self.subTest(file=file.name):
                     ast.parse(textwrap.dedent(code))

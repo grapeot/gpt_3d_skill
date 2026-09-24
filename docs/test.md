@@ -31,12 +31,18 @@ python -m unittest discover -s tests -v
 
 All execution checks occur in task-specific workspaces external to this repository.
 
+### Change-Based Verification
+
+Use the router's [iteration and handoff policy](../skills/skill_gpt_3d.md#iteration-and-model-handoff) to select relevant checks. For an ordinary appearance iteration, review one useful preview and rebuild the standalone comparison; add geometry checks or angles for changed or suspect surfaces. A viewer-only or source-photo-only change does not require Blender execution. Full requested animation, rig, printing or walkthrough acceptance is not replaced by a model-preview smoke test.
+
+For [standalone HTML delivery](../skills/references/shareable-html.md), each build checks embedded model/reference identity and missing external resources. Test the first viewer or loading/bundling changes with a targeted `file://` smoke pass; inspect only affected layout or controls for later UI changes. Geometry/material-only revisions using the same verified viewer need another browser pass only when a concrete concern appears. State whether offline/file opening was actually exercised; localhost alone cannot certify that behavior.
+
 ### 1. Blender Modeling Acceptance
 - **Headless Execution**: Execute generation scripts using `blender -b -P <script.py>`.
 - **Log Inspection**: Inspect standard output and error logs directly for Python tracebacks. Do not rely solely on process exit codes, as Blender execution wrappers may exit with status 0 despite unhandled exceptions.
 - **Asset Integrity**: Open generated `.blend` headlessly and verify all textures and resources are packed (`bpy.ops.file.pack_all()`).
 - **Surface Normals & Modifiers**: Inspect intended face orientation and shell thickness/offset together; verify that surface details are not accidentally buried. Open sheets can be intentional.
-- **Multi-Angle Render Review**: Generate front, side, rear, and top isometric camera renders to verify elevation details and canopy clearance.
+- **Render Review**: Start with a relevant low-cost view. Generate front, side, rear and top isometric views when changed or suspect geometry needs elevation/clearance review, or when the requested production deliverable requires the full set.
 
 ### 2. Blender Animation and Video Acceptance
 - **Frame Sequence Completeness**: Verify that the rendered PNG sequence contains every sequential index with no skipped frames or 0-byte files.
