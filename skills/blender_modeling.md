@@ -11,9 +11,11 @@ Generate clean, editable, procedurally constructed 3D architectural scenes, envi
 - **Copyright and Asset Rights**: Keep original reference imagery local to the private task workspace whenever redistribution rights are unknown or proprietary.
 - **Style Preservation**: An approved visual style (color palette, material roughness, edge beveling, proportion) must remain strictly consistent through any subsequent modeling refinements.
 - **Source Protection**: Generator scripts must never unintentionally overwrite existing master `.blend` files; use versioned output filenames or explicit target paths.
-- **Visual Review Prerequisite**: Procedural geometry generation does not replace visual review. Front, side, and rear elevation renders must be reviewed before downstream animation or export.
+- **Visual Review Prerequisite**: Procedural geometry generation does not replace visual review. Start ordinary appearance iterations with one useful preview; add front, side, rear or top views to resolve changed geometry, occlusion or framing concerns. Review the views required by a requested production or animation handoff before downstream use.
 
 ## Acceptance Criteria
+Scope validation to the changed stage using the router's [iteration and handoff policy](skill_gpt_3d.md#iteration-and-model-handoff). The checks below describe relevant modeling and final-delivery guarantees, not a command to repeat every operation for an unchanged model or a viewer-only edit.
+
 - **Deterministic Headless Execution**: Script runs headlessly without interactive prompts:
   ```bash
   blender -b -P generate_scene.py -- --output scene_model.blend
@@ -26,7 +28,7 @@ Generate clean, editable, procedurally constructed 3D architectural scenes, envi
 - **Structural Organization**: Outliner contains logical collections (e.g., `Foundation`, `Structure`, `Roof`, `Props`, `Foliage`) and descriptively named objects.
 - **Normal and Modifier Integrity**: Face winding and Solidify thickness/offset agree with the intended surface. No raised details are unintentionally buried. Thin sheets may intentionally be open or double-sided.
 - **Watertight Terminations**: Curved architectural boundaries (such as curved roof hips or eaves) terminate with matching curved geometry rather than flat gaps or triangles.
-- **Multi-Angle Visual Verification**: Rendered camera test frames (front, side, rear, and top isometric) visually confirm aesthetic fidelity, material appearance, and obstacle clearance before downstream animation or export.
+- **Visual Verification**: A relevant preview confirms the current appearance. Additional front, side, rear and top isometric views confirm changed or suspect geometry, material appearance and obstacle clearance; use the full set when the requested production deliverable requires it.
 
 ## Resources
 - **Blender Python (`bpy`)**: Headless scene generation, modifier application, and RNA API introspection (Blender 5.1.2 or current LTS).
@@ -41,12 +43,13 @@ Task workspaces must produce the following structured deliverables:
 - `generate_scene.py`: Deterministic Python generation script accepting CLI arguments for target paths and seeds.
 - `scene_model.blend`: Master Blender scene with packed textures and intact modifier stacks.
 - `sources_manifest.json`: Metadata linking modeled components to references (noting visible vs. inferred aspects).
-- `previews/`: Multi-angle preview renders:
+- `previews/`: Relevant preview renders; include additional views as required by the change or delivery scope. Conventional names are:
   - `previews/front_elevation.png`: Front perspective/orthographic view.
   - `previews/side_elevation.png`: Side perspective/orthographic view.
   - `previews/rear_elevation.png`: Rear perspective/orthographic view verifying canopy clearance.
   - `previews/isometric_overview.png`: High-angle overview validating terrain and roof caps.
 - `logs/generation.log`: Complete stdout and stderr captured during headless script execution.
+- `<project>-share.html`: The current model and supplied source photos in an offline, single-file comparison viewer, following [Shareable HTML delivery](references/shareable-html.md), unless the user specifies another handoff.
 
 ## High-Value Guidance
 

@@ -5,6 +5,8 @@ Type: Workflow. Updated: 2026-09-05. Target: static browser scenes with an expli
 ## Goal
 Deliver an interactive, real-time 3D architectural walkthrough in the browser using Three.js and Vite. Faithfully preserve Blender's approved visual lighting, procedural material detail, and contact shadows via static baking before optimization, supported by pre-batch collision geometry and robust dual desktop/mobile controls.
 
+For an orbit-only model handoff or a file to send to a friend, use [Shareable HTML delivery](references/shareable-html.md). A standalone comparison does not require first-person navigation, collision metadata or changes to the mobile walkthrough template. Preserve the model's approved shading; retain the baking workflow below when static architectural fidelity is required. Reuse the router's [iteration policy](skill_gpt_3d.md#iteration-and-model-handoff) for incremental work and recheck changed navigation, collision or baking behavior when those features are affected.
+
 ## Boundaries
 - **Task Workspace Boundary**: All web application source code, Vite build bundles, baked textures, exported GLB assets, and paired test renders belong strictly in external task workspaces outside this skill repository.
 - **Network Serving Authority**: Serve static build directories only. Bind to localhost/127.0.0.1 by default. Binding to LAN interfaces or generating external URLs requires explicit user authorization. Check chosen port availability before binding; never kill unrelated processes.

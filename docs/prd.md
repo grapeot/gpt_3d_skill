@@ -18,6 +18,9 @@ A user or coding agent can:
 2. Animate and render multi-stage architectural showcases (such as orbit sweeps, exploded views, structural assemblies, and staged prop entries) into verified high-definition video.
 3. Export and deploy an interactive web-based first-person walkthrough that faithfully reproduces Blender's visual lighting, materials, and contact shadows without relying on heavy frontend frameworks.
 4. Author a character rig that respects its approved motion model, export a deforming asset, and optionally drive it with local browser capture while preserving consent and verifiable acceptance boundaries.
+5. Receive a self-contained, offline model-comparison HTML by default after model creation or revision, with supplied input photos, an interactive output and no recipient-side server or dependencies. User-requested alternative formats and photo exclusions take precedence. This handoff workflow is separate from the first-person walkthrough template's scope.
+
+Ordinary visual iterations reuse existing outputs and use checks proportional to the change. A useful preview and verified current comparison artifact should reach the user before optional renders, archives or hosting; explicit production requirements retain their relevant acceptance checks.
 
 ## Core Skills
 
@@ -68,7 +71,8 @@ A user or coding agent can:
 | **Modeling** | Script Execution | Headless Blender execution succeeds with zero Python tracebacks in logs. |
 | **Modeling** | Asset Packaging | Canonical `.blend` file is readable and all external assets are packed. |
 | **Modeling** | Geometry & Normals | Consistent outward normals; zero Solidify modifier inversion; clean hip/eave closures. |
-| **Modeling** | Visual Review | Multi-angle renders validate front, side, and rear elevations against references. |
+| **Modeling** | Visual Review | A relevant preview validates the current appearance; additional angles resolve changed or suspect geometry and requested production requirements. |
+| **Model Handoff** | Offline Comparison | Single HTML embeds the current model, runtime and supplied references; standalone loading is verified when the viewer or packaging changes. |
 | **Animation** | Render Completeness | Every intended index is present, valid and associated with the same scene version; intentional holds are allowed. |
 | **Animation** | Stream Verification | `ffprobe` and `ffmpeg` decode video stream with zero errors, confirming exact duration, resolution, and FPS. |
 | **Animation** | Transform Correctness | Smooth animation without transform doubling, foundation burial, or accidental frustum clipping. |

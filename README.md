@@ -9,12 +9,17 @@ A vendor-agnostic collection of skills for procedural 3D modeling, animation, in
 - **[Hybrid 3D / AI Video](skills/hybrid_ai_video.md)**: Blender start frames with generative character acting, per-beat narration, unified scoring, foley alignment, and explicit editorial and QA boundaries.
 - **Interactive Web Walkthroughs (`web_walkthrough`)**: Static high-fidelity WebGL delivery via texture baking, glTF/GLB export, pre-batch collision boundaries, desktop pointer-lock fallback, and responsive mobile touch navigation.
 - **Character Rigging and Motion Capture (`character_rigging_mocap`)**: Reference-driven motion-model selection, rest binding, skinning and browser retargeting. Includes camera-free presets, local capture lifecycle handling, clean asset builds and separate rig, fixture, live-device and user-approval evidence.
+- **[Offline Model Sharing](skills/references/shareable-html.md)**: A single HTML file containing the interactive model, viewer runtime and source-photo comparison. Recipients download it and open it in a desktop browser without a server or installed dependencies.
+
+Ordinary model iterations start with a useful preview and checks relevant to the changes. Completed model handoffs include an offline comparison HTML by default unless the user requests another format. Extra renders and packaging are conditional, while requested production, animation, rigging and walkthrough checks remain in scope. See the router's [iteration and handoff policy](skills/skill_gpt_3d.md#iteration-and-model-handoff).
 
 ## Installation
 
 This repository provides loose Markdown skill definitions designed for direct integration by coding agents (such as Codex, Claude Code, Cursor, OpenCode) and human developers.
 
 ## Reuse the Viewer
+
+The walkthrough template below is for first-person exploration. For a model that a friend can open by double-clicking a single file, follow the [standalone sharing workflow](skills/references/shareable-html.md); opening a development `index.html` with adjacent ES modules and GLB fetches under `file://` is not equivalent to an offline bundle.
 
 Start from [`templates/mobile_walkthrough/`](templates/mobile_walkthrough/README.md) instead of rewriting the controls. Copy that directory into a task workspace, supply your baked GLB and collider file, run `npm ci`, then `npm run dev`. No runtime demo or user model is bundled.
 

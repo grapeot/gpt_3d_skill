@@ -2,6 +2,13 @@
 
 ## Changelog
 
+### 2026-09-24: Fast Model Iteration and Offline Comparison Handoffs
+- Adapted local model-delivery guidance to the existing vendor-agnostic router: reuse working outputs, begin with a relevant preview, and select validation by changed stage instead of repeating full production checks for every small edit.
+- Added a focused standalone-HTML reference covering embedded GLB/runtime/source photos, local-file loading, expandable photo comparison, current-asset checks and visible failures. Completed model handoffs include this local file unless the user selects another format; external publication still requires authorization.
+- Aligned modeling and verification guidance with this iteration scope while retaining required animation, rigging and architectural-walkthrough checks. The mobile walkthrough runtime and its baked-unlit scope are unchanged.
+- This contribution contains documentation and document-integrity coverage only. Runtime artifacts and source photos remain in external workspaces. No new Blender, browser or physical-device certification is claimed for this PR.
+- Validation: all 10 repository unit tests passed, including recursive skill-example parsing, relative links and public-file hygiene; `git diff --check` passed.
+
 ### 2026-09-05: Character Rigging Skill Publication Preparation
 - Added the reviewed character-rigging skill and extended the existing sole router; no runtime app, model, media or fixture entered this repository.
 - Transferred observed rig/export, attachment, local-capture, clean-build and review lessons from an external character project. The new contract starts with target motion-model choice, not a human skeleton template.
@@ -61,6 +68,11 @@
 ---
 
 ## Lessons Learned
+
+### Model Iteration and File Sharing
+- **Localhost is not a standalone file:** ES module imports and neighboring GLB fetches can leave a double-clicked HTML viewer unable to load. Bundle the runtime and parse embedded model bytes for an offline handoff.
+- **Keep input and output together:** A comparison needs the actual supplied reference photos, with exclusions respected and access to their full composition. A generated render cannot stand in for the input.
+- **Validate the changed stage:** Rebuilding a reference-photo panel does not require rerendering an unchanged model. Asset identity checks keep the share file current without making repeated full browser or geometry audits a handoff gate.
 
 ### Hybrid Character Films
 - **Start-Frame Motion Affordance:** A nearly seated kiln lid produced weak motion. A visible gap in the revised Blender input and a focused descent prompt improved the generated action; more prompt detail alone was not the fix.
