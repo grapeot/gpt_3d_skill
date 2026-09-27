@@ -2,6 +2,12 @@
 
 ## Changelog
 
+### 2026-09-26: Blender Compositing Plate Workflow
+- Added [`blender_compositing_plate.md`](../skills/blender_compositing_plate.md) and a routing row: Blender renders a plate that a separate, usually code-driven, renderer composites with frame-accurately. The contract covers one shared world coordinate system, a per-frame camera file owned by the other timeline, orthographic matching with per-frame projection assertions, lighting shared as a formula, and a fixed 16-bit/Standard/headroom colour contract.
+- Documented deterministic analytic deformation from one shared module as the default for cloth and flag motion in plates, a parallel-oblique mapping when height must read under a top-down orthographic camera, and true-surface custom split normals and tangents after such shearing. True cloth simulation stays reserved for collisions and self-contact.
+- Added operational guidance for driving Blender through a coding agent (sandbox crash, explicit model, no sub-agents, own notes, re-render parameter changes directly). Cross-linked the new workflow with the hybrid-video skill and the public procedural-video-frames skill.
+- Validation came from one external production on Blender 5.1 Cycles, macOS/Metal. Landscape framing, camera rotation, perspective cameras, alpha plates and simulation remain marked untested. No runtime artifacts entered this repository. All 11 repository unit tests passed, including a new plate contract check.
+
 ### 2026-09-24: Fast Model Iteration and Offline Comparison Handoffs
 - Adapted local model-delivery guidance to the existing vendor-agnostic router: reuse working outputs, begin with a relevant preview, and select validation by changed stage instead of repeating full production checks for every small edit.
 - Added a focused standalone-HTML reference covering embedded GLB/runtime/source photos, local-file loading, expandable photo comparison, current-asset checks and visible failures. Completed model handoffs include this local file unless the user selects another format; external publication still requires authorization.
@@ -73,6 +79,14 @@
 - **Localhost is not a standalone file:** ES module imports and neighboring GLB fetches can leave a double-clicked HTML viewer unable to load. Bundle the runtime and parse embedded model bytes for an offline handoff.
 - **Keep input and output together:** A comparison needs the actual supplied reference photos, with exclusions respected and access to their full composition. A generated render cannot stand in for the input.
 - **Validate the changed stage:** Rebuilding a reference-photo panel does not require rerendering an unchanged model. Asset identity checks keep the share file current without making repeated full browser or geometry audits a handoff gate.
+
+### Compositing Plates
+- **Share, Never Re-derive:** Timing came from the compositing renderer's per-frame camera file and deformation from one module imported by both renderers. Blender never recomputed either, so elements drawn by the other layer stayed on the cloth.
+- **Assert the Camera Every Frame:** Projecting known world points through Blender's evaluated camera and comparing with the shared pixel formula held below 0.001 px on all frames; checking one frame would not catch a mid-range scale or centre error.
+- **Multiply the Whole Closure:** A world-position mask mixing the full BSDF with black made zero-light frames exactly black, including reflections.
+- **Height Is Invisible Top-Down:** Wave height under an orthographic top-down camera only changed shading; a shared oblique screen offset made the motion read, and shading then required true-surface normals and tangents.
+- **Crossing Waves Read as Latex:** One dominant travelling wave read as fabric where two superposed crossing systems did not.
+- **Agent Sandbox:** Blender segfaulted on startup inside a coding agent's workspace-write sandbox and worked unsandboxed with a one-directory scope.
 
 ### Hybrid Character Films
 - **Start-Frame Motion Affordance:** A nearly seated kiln lid produced weak motion. A visible gap in the revised Blender input and a focused descent prompt improved the generated action; more prompt detail alone was not the fix.

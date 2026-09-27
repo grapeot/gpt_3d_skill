@@ -1,7 +1,7 @@
 # 3D Pipeline Root Router (`skill_gpt_3d`)
 
 ## Goal
-Serve as the sole entry point and router for the `gpt_3d_skill` collection. Evaluate procedural modeling, cinematic animation, real-time walkthroughs, and character rigging/motion-capture objectives, then route to the appropriate specialized capability while enforcing shared contracts.
+Serve as the sole entry point and router for the `gpt_3d_skill` collection. Evaluate procedural modeling, cinematic animation, compositing plates, real-time walkthroughs, and character rigging/motion-capture objectives, then route to the appropriate specialized capability while enforcing shared contracts.
 
 ## Shared Workspace and Authorization Contract
 
@@ -31,6 +31,7 @@ Evaluate incoming user tasks and route to the appropriate focused domain skill:
 | Model handoff, offline sharing, or a source-photo/model comparison that opens by double-clicking. | [Shareable HTML delivery](references/shareable-html.md) | Self-contained `<project>-share.html` with embedded model, runtime and supplied references. |
 | Camera choreography, orbit sweeps, exploded views, component assembly, staged prop entry, frame sequence rendering, video encoding. | [`blender_animation.md`](blender_animation.md) | Rendered PNG frame sequence, verified MP4 video file, decode validation log. |
 | Blender starting frames, AI-generated character acting, editorial mix and QA; keep exact mechanical trajectories in `blender_animation.md`. | [`hybrid_ai_video.md`](hybrid_ai_video.md) | Edited film, source references, shot prompts and trims, audio stems, timeline, attempt ledger, and QA manifest. |
+| A Blender layer that another (often code-driven) renderer composites with frame-accurately: shared coordinates and camera file, shared analytic cloth deformation, formula-matched lighting, music-synced timing. | [`blender_compositing_plate.md`](blender_compositing_plate.md) | Versioned 16-bit PNG plate, per-frame camera/report JSON, shared deformation module, verification JSON. |
 | WebGL presentation, glTF/GLB export, static texture baking, Three.js first-person navigation, pre-batch collision. | [`web_walkthrough.md`](web_walkthrough.md) | Baked GLB asset, `colliders.json`, static Vite/Three.js walkthrough app. |
 | Character articulation, skinning, pose retargeting, local webcam motion capture and deforming browser avatars. | [`character_rigging_mocap.md`](character_rigging_mocap.md) | Editable rig source, rigged asset, optional local-capture app, pose/reference and lifecycle evidence. |
 

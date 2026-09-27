@@ -32,6 +32,8 @@ A hybrid production divides responsibilities across three disciplines:
 
 In the clay-film case, the user accepted the original static character but found the hand-authored Blender animation simple and PPT-like. The earlier animation did contain deformation, brush passes, and lid travel; it was not literally a slideshow. That feedback concerned this execution's acting, not Blender's overall animation capability.
 
+When a shot needs exact timing or geometry rather than acting, such as motion locked frame-accurately to music, text riding a waving surface, or lighting that must match another layer, generated video is the wrong tool. Render a code-driven procedural layer (see the public [procedural-video-frames skill](https://github.com/grapeot/opus-video-audio-skill/tree/master/skills/procedural-video-frames)) and composite a Blender plate under it following [`blender_compositing_plate.md`](blender_compositing_plate.md).
+
 Generative I2V can reduce the manual cost of complex acting, but the starting frame must make the intended motion possible. The pipeline is neither absolute audio-first nor video-first across all phases: retain the script while testing visual feasibility, then lock timing against usable footage.
 
 ## Shot Planning and Motion Affordances
@@ -183,6 +185,7 @@ These observations describe one production, not guaranteed model behavior or est
 
 - [Blender Modeling](blender_modeling.md): Author geometry, character identity, start poses, and cutaways.
 - [Blender Animation](blender_animation.md): Exact camera paths, mechanical trajectories, and rendered motion.
+- [Blender Compositing Plate](blender_compositing_plate.md): Frame-accurate Blender layers under a code-driven procedural renderer when timing or geometry must be exact.
 - [3D Root Router](skill_gpt_3d.md): Shared workspace and authorization contracts.
 - Blender, FFmpeg, and ffprobe: Scene authoring, stream inspection, trimming, mixing, and metering. Use the host's available audiovisual review tools and disclose their capability limits.
 - Host credential-provider documentation: Approved credential access and owner-controlled refresh; no private OAuth implementation is bundled here.

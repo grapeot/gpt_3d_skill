@@ -15,6 +15,7 @@
   - `skills/skill_gpt_3d.md`: Sole root router skill exposed to agents.
   - `skills/blender_modeling.md`: Focused procedural modeling capability.
   - `skills/blender_animation.md`: Focused architectural animation and video encoding capability.
+  - `skills/blender_compositing_plate.md`: Focused frame-accurate Blender plate rendering for compositing with another renderer.
   - `skills/hybrid_ai_video.md`: Focused hybrid 3D and AI video production capability.
   - `skills/web_walkthrough.md`: Focused WebGL/Three.js walkthrough capability with baked fidelity.
   - `skills/character_rigging_mocap.md`: Focused character motion-model, skinning, retargeting and local capture capability.
