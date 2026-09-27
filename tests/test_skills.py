@@ -8,7 +8,8 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
-FOCUSED=('blender_modeling.md','blender_animation.md','web_walkthrough.md','hybrid_ai_video.md','character_rigging_mocap.md')
+FOCUSED=('blender_modeling.md','blender_animation.md','blender_compositing_plate.md','web_walkthrough.md',
+         'hybrid_ai_video.md','character_rigging_mocap.md')
 ASSET_SUFFIXES={'.blend','.blend1','.glb','.gltf','.bin','.fbx','.obj','.stl',
                 '.mp4','.mov','.webm','.mkv','.png','.jpg','.jpeg','.webp','.exr','.hdr','.tif','.tiff'}
 
@@ -71,6 +72,15 @@ class SkillContractTests(unittest.TestCase):
                      'Mock permission/capture','empty-frame smoke','positive fixture',
                      'Authorized live-person','User approval'):
             self.assertIn(tier,evidence)
+
+    def test_compositing_plate_contract_and_cross_links(self):
+        skill=(ROOT/'skills'/'blender_compositing_plate.md').read_text()
+        for contract in ('**One Timing Authority**','**One Geometry Authority**',
+                         '**Camera Agreement on Every Frame**','**Exact Darkness Where Light Is Zero**',
+                         '### 6. Deterministic Analytic Deformation','## Evidence Status','*untested*'):
+            self.assertIn(contract,skill)
+        self.assertIn('](hybrid_ai_video.md)',skill)
+        self.assertIn('](blender_compositing_plate.md)',(ROOT/'skills'/'hybrid_ai_video.md').read_text())
 
     def test_relative_links_and_anchors_resolve(self):
         for file in public_files():

@@ -15,6 +15,8 @@
 - **Context Efficiency**: Agent orchestrators register the root router in their workspace index (`AGENTS.md`, `CLAUDE.md`, or routing files). The router evaluates the user's objective and delegates execution to focused domain skills:
   - Modeling queries -> [`skills/blender_modeling.md`](../skills/blender_modeling.md)
   - Animation/video queries -> [`skills/blender_animation.md`](../skills/blender_animation.md)
+  - Plates composited frame-accurately with another renderer -> [`skills/blender_compositing_plate.md`](../skills/blender_compositing_plate.md)
+  - Generated character acting and editorial -> [`skills/hybrid_ai_video.md`](../skills/hybrid_ai_video.md)
   - Real-time web viewer queries -> [`skills/web_walkthrough.md`](../skills/web_walkthrough.md)
   - Character rigging and local capture queries -> [`skills/character_rigging_mocap.md`](../skills/character_rigging_mocap.md)
 - **Domain Skills Stay Local**: Specialized skills remain local to this repository and are invoked selectively, preventing context window saturation.

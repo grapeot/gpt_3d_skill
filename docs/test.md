@@ -75,6 +75,15 @@ For [standalone HTML delivery](../skills/references/shareable-html.md), each bui
 ## Baked Workflow Status
 An external static-courtyard exercise completed source-preserving preparation, a mixed texture/vertex-light bake, three paired camera views, GLB extension checks and browser interaction checks. Image error improved over the earlier unbaked viewer and visual review found no blocking defects. Physical-phone performance and dynamic relighting were not tested. These results are not a substitute for running acceptance checks on the next task.
 
+## Compositing Plate Acceptance
+
+The plate workflow is [`blender_compositing_plate.md`](../skills/blender_compositing_plate.md). Repository tests check its document contract and routing; plate rendering and verification run in external task workspaces.
+
+- Assert per-frame camera agreement against the shared pixel formula and record the errors.
+- Decode every expected frame for dimensions, bit depth and peak value; zero-light frames must be exactly black.
+- Check overscan and projected-face orientation for deforming surfaces across the full range.
+- Open test frames covering the key states before the full render, and the final frame afterwards.
+
 ## Character Rigging and Capture Acceptance
 
 The character-focused skill is [`character_rigging_mocap.md`](../skills/character_rigging_mocap.md). Repository tests check its document contract and routing, not GLB assets or camera operation; all execution evidence remains outside this repository.

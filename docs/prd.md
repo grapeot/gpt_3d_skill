@@ -48,6 +48,11 @@ Ordinary visual iterations reuse existing outputs and use checks proportional to
   - Responsive first-person navigation supporting desktop pointer lock, click-drag fallback, and mobile touch joysticks.
   - Robust state handling for window blur, Escape pausing, and collision boundary enforcement.
 
+### Blender Compositing Plate (`skills/blender_compositing_plate.md`)
+- **Focus**: Blender layers that another renderer composites with, frame-accurately.
+- **Capabilities**: One shared world coordinate system and per-frame camera file, per-frame projection assertions, lighting shared as a formula, a fixed colour/headroom contract, and deterministic analytic deformation imported by both renderers.
+- **Acceptance**: Every frame decodes with the agreed format, camera error stays sub-pixel, zero-light frames are exactly black and the peak leaves headroom; test frames are opened before the full range.
+
 ### Character Rigging and Motion Capture (`skills/character_rigging_mocap.md`)
 - **Focus**: Reference-faithful articulation, rest binding, skin export/reload and optional local browser retargeting.
 - **Capabilities**: Explicit target motion-model selection, continuous skin where required, shared rig definitions, camera-free presets, capture cancellation/cleanup, and clean non-root static delivery.
