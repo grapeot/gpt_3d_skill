@@ -18,6 +18,7 @@
   - Plates composited frame-accurately with another renderer -> [`skills/blender_compositing_plate.md`](../skills/blender_compositing_plate.md)
   - Generated character acting and editorial -> [`skills/hybrid_ai_video.md`](../skills/hybrid_ai_video.md)
   - Real-time web viewer queries -> [`skills/web_walkthrough.md`](../skills/web_walkthrough.md)
+  - Static characters from design sheets -> [`skills/character_modeling.md`](../skills/character_modeling.md)
   - Character rigging and local capture queries -> [`skills/character_rigging_mocap.md`](../skills/character_rigging_mocap.md)
 - **Domain Skills Stay Local**: Specialized skills remain local to this repository and are invoked selectively, preventing context window saturation.
 

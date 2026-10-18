@@ -18,9 +18,10 @@
   - `skills/blender_compositing_plate.md`: Focused frame-accurate Blender plate rendering for compositing with another renderer.
   - `skills/hybrid_ai_video.md`: Focused hybrid 3D and AI video production capability.
   - `skills/web_walkthrough.md`: Focused WebGL/Three.js walkthrough capability with baked fidelity.
+  - `skills/character_modeling.md`: Focused static character modeling from design sheets, with matched-view review and face-repaint projection.
   - `skills/character_rigging_mocap.md`: Focused character motion-model, skinning, retargeting and local capture capability.
 - `tests/`: Offline document integrity and repository hygiene checks.
-- `templates/`: Reusable application source and synthetic test fixtures, without user models or deployment data.
+- `templates/`: Reusable application source and synthetic test fixtures, without user models or deployment data. `templates/character_review/` holds the config-driven character review and face-projection tools.
 
 ## Operational Rules for Agents
 

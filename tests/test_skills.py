@@ -9,7 +9,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
 FOCUSED=('blender_modeling.md','blender_animation.md','blender_compositing_plate.md','web_walkthrough.md',
-         'hybrid_ai_video.md','character_rigging_mocap.md')
+         'hybrid_ai_video.md','character_modeling.md','character_rigging_mocap.md')
 ASSET_SUFFIXES={'.blend','.blend1','.glb','.gltf','.bin','.fbx','.obj','.stl',
                 '.mp4','.mov','.webm','.mkv','.png','.jpg','.jpeg','.webp','.exr','.hdr','.tif','.tiff'}
 
@@ -81,6 +81,23 @@ class SkillContractTests(unittest.TestCase):
             self.assertIn(contract,skill)
         self.assertIn('](hybrid_ai_video.md)',skill)
         self.assertIn('](blender_compositing_plate.md)',(ROOT/'skills'/'hybrid_ai_video.md').read_text())
+
+    def test_character_modeling_contract_and_template(self):
+        skill=(ROOT/'skills'/'character_modeling.md').read_text()
+        for contract in ('**Faces Are Not Primitives**','**Generated Imagery Is Texture, Not Geometry**',
+                         '**Disjoint Parallel Ownership**','### 1. Measure the Sheets First, Then Fix the Skeleton',
+                         '### 3. Faces: Base Mesh, Then a Projected Repaint','](character_rigging_mocap.md)'):
+            self.assertIn(contract,skill)
+        self.assertIn('](character_modeling.md)',(ROOT/'skills'/'character_rigging_mocap.md').read_text()
+                      +(ROOT/'skills'/'skill_gpt_3d.md').read_text())
+        tpl=ROOT/'templates'/'character_review'
+        for name in ('matched_views.py','compare_panels.py','silhouette.py','render_face_input.py','face_paint.py'):
+            with self.subTest(script=name):
+                ast.parse((tpl/name).read_text())
+        import json
+        cfg=json.loads((tpl/'review_config.example.json').read_text())
+        for key in ('px_per_m','ground_y','panel_size','panels'):
+            self.assertIn(key,cfg['turnaround'])
 
     def test_relative_links_and_anchors_resolve(self):
         for file in public_files():
