@@ -2,6 +2,12 @@
 
 ## Changelog
 
+### 2026-10-17: Character Modeling from Reference Sheets
+- Added [`character_modeling.md`](../skills/character_modeling.md) and a routing row: a static toon character built from a turnaround and a detail sheet. Rigging stays in the existing character branch, which now points back to this skill for sheet-driven assets.
+- Added [`templates/character_review/`](../templates/character_review/README.md): a config-driven matched-view renderer, a reference/render pairing script, a silhouette and limb-run measurer, a flat front head render for repainting, and face-repaint alignment and projection helpers. They were generalised from the task-local tools of one external production. Re-running them on that production reproduced its turnaround framing to within sub-pixel edge differences and its prepared face texture to an RMSE of about 3e-5.
+- The lessons come from that one production: a procedural sphere face was rejected as comical; a CC0 base head with a projected GPT Image repaint was accepted; measured skeleton corrections preceded part-wise parallel work; cast shadows were disabled for the toon read; and the export was budgeted from 40 MB to 16 MB. Other character styles, body types and image models remain untested.
+- No sheets, models, renders or repaints entered this repository.
+
 ### 2026-09-26: Blender Compositing Plate Workflow
 - Added [`blender_compositing_plate.md`](../skills/blender_compositing_plate.md) and a routing row: Blender renders a plate that a separate, usually code-driven, renderer composites with frame-accurately. The contract covers one shared world coordinate system, a per-frame camera file owned by the other timeline, orthographic matching with per-frame projection assertions, lighting shared as a formula, and a fixed 16-bit/Standard/headroom colour contract.
 - Documented deterministic analytic deformation from one shared module as the default for cloth and flag motion in plates, a parallel-oblique mapping when height must read under a top-down orthographic camera, and true-surface custom split normals and tangents after such shearing. True cloth simulation stays reserved for collisions and self-contact.
@@ -74,6 +80,12 @@
 ---
 
 ## Lessons Learned
+
+### Characters from Design Sheets
+- **Measure before modelling:** Rendering at the sheet's own scale and comparing width per row turned "looks thin" into specific corrections to arm angles, stance, crotch height and chest depth.
+- **Faces need real structure:** A deformed sphere with painted features read as comical. A licensed base head, reshaped deterministically, gave brow, nose, cheek and jaw structure for the toon shading.
+- **Repaint, then project:** A layout-preserving image-model repaint of a flat front render, corrected only by a small local warp at the mouth and projected back through the same orthographic frame, fixed the skin, stubble, nose and mouth texture. Dense optical flow tore the features and was rejected.
+- **Toon read is fragile:** Cast shadows from collars, a torso ring wider than the neck, and a purple web ambient each made the face look dirty or tinted. All three were interface problems, not modelling problems.
 
 ### Model Iteration and File Sharing
 - **Localhost is not a standalone file:** ES module imports and neighboring GLB fetches can leave a double-clicked HTML viewer unable to load. Bundle the runtime and parse embedded model bytes for an offline handoff.

@@ -1,0 +1,34 @@
+{
+  "_comment": "Pixel numbers describe YOUR reference sheets. Measure them once (see README). Units: metres, +Z up, the character faces -Y.",
+  "camera": {"name": "Cam"},
+  "background": {"sample": [700, 5, 100, 25], "threshold": 55},
+  "turnaround": {
+    "sheet": "refs/turnaround.jpg",
+    "panel_size": [512, 1024],
+    "px_per_m": 507.0,
+    "ground_y": 938,
+    "mask_out": [[0, 0, 360, 24]],
+    "panels": [
+      {"name": "t_front", "az": 0, "crop_x": 138},
+      {"name": "t_side", "az": 90, "crop_x": 522},
+      {"name": "t_back", "az": 180, "crop_x": 960}
+    ]
+  },
+  "details": [
+    {"name": "face", "sheet": "refs/details.jpg", "crop": [20, 57, 815, 473],
+     "renders": [
+       {"name": "d_face", "target": [0.0, -0.01, 1.64], "az": 0, "el": 4, "dist": 1.15, "lens": 70, "res": [800, 700]},
+       {"name": "d_face34", "target": [0.0, -0.01, 1.64], "az": -38, "el": 4, "dist": 1.15, "lens": 70, "res": [800, 700]}
+     ]},
+    {"name": "vest", "sheet": "refs/details.jpg", "crop": [20, 545, 852, 440],
+     "renders": [
+       {"name": "d_vest_front", "target": [0.0, 0.0, 1.2], "az": 0, "el": 0, "dist": 6.0, "ortho": 0.8, "res": [850, 640]},
+       {"name": "d_vest_back", "target": [0.0, 0.0, 1.2], "az": 180, "el": 0, "dist": 6.0, "ortho": 0.8, "res": [850, 640]}
+     ]},
+    {"name": "boot", "sheet": "refs/details.jpg", "crop": [885, 560, 360, 420],
+     "renders": [
+       {"name": "d_boot", "target": [0.226, -0.04, 0.1], "az": 78, "el": 6, "dist": 4.0, "ortho": 0.4, "res": [640, 440],
+        "solo": ["boot", "lace", "eyelet", "pants_leg_L"]}
+     ]}
+  ]
+}

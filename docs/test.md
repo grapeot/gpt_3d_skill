@@ -84,6 +84,15 @@ The plate workflow is [`blender_compositing_plate.md`](../skills/blender_composi
 - Check overscan and projected-face orientation for deforming surfaces across the full range.
 - Open test frames covering the key states before the full render, and the final frame afterwards.
 
+## Character Modeling Acceptance
+
+The sheet-driven skill is [`character_modeling.md`](../skills/character_modeling.md). Repository tests check its document contract, routing and that the [review template](../templates/character_review/README.md) scripts parse and its example config loads. Rendering and repaint evidence stays in the task workspace.
+
+- Render every turnaround panel at the sheet's scale and pair it with its crop; measure width per row and limb runs before judging details.
+- Check the head close up from the front, the sheet's 3/4, a full side, below and behind after every head change.
+- For a projected face repaint, record the measured pupil and mouth offsets, the local correction applied and the rejected variants.
+- Verify the exported GLB has no external resources, the offline HTML loads under `file://`, and the web viewer's shading matches the renders.
+
 ## Character Rigging and Capture Acceptance
 
 The character-focused skill is [`character_rigging_mocap.md`](../skills/character_rigging_mocap.md). Repository tests check its document contract and routing, not GLB assets or camera operation; all execution evidence remains outside this repository.

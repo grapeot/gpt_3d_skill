@@ -53,6 +53,11 @@ Ordinary visual iterations reuse existing outputs and use checks proportional to
 - **Capabilities**: One shared world coordinate system and per-frame camera file, per-frame projection assertions, lighting shared as a formula, a fixed colour/headroom contract, and deterministic analytic deformation imported by both renderers.
 - **Acceptance**: Every frame decodes with the agreed format, camera error stays sub-pixel, zero-light frames are exactly black and the peak leaves headroom; test frames are opened before the full range.
 
+### Character Modeling from Reference Sheets (`skills/character_modeling.md`)
+- **Focus**: A static, toon-shaded character that reads like its design sheets at matched views.
+- **Capabilities**: Sheet-scale orthographic panels and detail cameras, silhouette and limb-run measurement, part-wise generators with explicit cross-part contracts, base-mesh heads and hands, image-model face repaints aligned and projected onto the head, and an export budget for web sharing.
+- **Acceptance**: Paired reference/render images for every panel, measured silhouette differences, multi-angle head review, clean toon read without cast-shadow smears, an offline HTML smoke pass, and a manifest with licences and generated-texture provenance.
+
 ### Character Rigging and Motion Capture (`skills/character_rigging_mocap.md`)
 - **Focus**: Reference-faithful articulation, rest binding, skin export/reload and optional local browser retargeting.
 - **Capabilities**: Explicit target motion-model selection, continuous skin where required, shared rig definitions, camera-free presets, capture cancellation/cleanup, and clean non-root static delivery.
@@ -84,5 +89,6 @@ Ordinary visual iterations reuse existing outputs and use checks proportional to
 | **Web Walkthrough** | Visual Fidelity | Paired-camera render comparison demonstrates diffuse lighting and contact shadow parity with Blender reference. |
 | **Web Walkthrough** | Navigation & Control | Desktop pointer lock with drag/WASD fallback, responsive mobile touch controls, and immediate motion halt on Escape. |
 | **Web Walkthrough** | Collision Integrity | Player constrained by scene boundaries and obstacle colliders derived prior to mesh batching. |
+| **Character Modeling** | Sheet Fidelity | Matched-view pairs for every panel, measured silhouette and limb runs, multi-angle head review, and documented provenance for base meshes and repainted textures. |
 | **Character Rigging** | Motion and Bind Integrity | Approved visible freedoms, compatible rest/inverse binds, valid weights and actual posed deformation after reload. |
 | **Motion Capture** | Runtime and Evidence | Correct coordinate/mirror mapping, bounded in-flight work, cleanup on cancellation, complete clean-build assets, and separate fixture/live/user-acceptance claims. |
